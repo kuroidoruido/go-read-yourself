@@ -1,0 +1,13 @@
+---
+const { class: classes } = Astro.props;
+---
+
+<div class={classes}><slot /></div>
+
+<style>
+  div {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+</style>

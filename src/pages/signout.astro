@@ -1,0 +1,16 @@
+---
+import { UserService } from "../services/user.service";
+
+try {
+  if (
+    UserService.isConnectedAsAdmin((name) => Astro.cookies.get(name)?.value)
+  ) {
+    UserService.logOut(
+      (name) => Astro.cookies.get(name)?.value,
+      (name) => Astro.cookies.delete(name)
+    );
+  }
+} finally {
+  return Astro.redirect("/");
+}
+---

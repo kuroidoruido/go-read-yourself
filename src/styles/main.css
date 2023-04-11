@@ -1,0 +1,64 @@
+:root {
+  --color--white: rgba(255, 255, 255, 1);
+  --color--black: rgba(0, 0, 0, 1);
+
+  --color--primary-light: rgba(239, 217, 250, 1);
+  --color--primary: rgba(159, 89, 195, 1);
+  --color--primary-dark: rgba(89, 21, 124, 1);
+  --color--primary-darker: rgba(38, 2, 57, 1);
+}
+
+/* BUTTON */
+button.btn, a.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--color--primary);
+  color: var(--color--white);
+}
+
+/* FORM */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+form .field {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+form .field > * {
+  max-width: 100%;
+}
+form .field label {
+  text-align: end;
+  flex: 1;
+}
+form .field input {
+  flex: 2;
+  border-radius: 2px;
+  outline: none;
+  border: 0.5px solid var(--color--primary-light);
+  padding: 4px;
+}
+form .field input:active,
+form .field input:focus,
+form .field textarea:active,
+form .field textarea:focus {
+  outline: none;
+  border: 1.5px solid var(--color--primary);
+  box-shadow: 1px 1px 15px var(--color--primary-light);
+}
+
+form .field textarea {
+  flex: 1;
+  min-height: 120px;
+  border: 0.5px solid var(--color--primary-light);
+}
+
+form .field .extra {
+  flex: 1 0 100%;
+}

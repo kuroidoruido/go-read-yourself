@@ -1,0 +1,67 @@
+---
+import { formatISO } from "date-fns";
+import ShortUniqueId from "short-unique-id";
+import Layout from "../layouts/Layout.astro";
+import NewPostForm from "../components/NewPostForm.astro";
+import { UserService } from "../services/user.service";
+import { NewsService } from "../services/news.service";
+import {
+  isDefined,
+  isDefinedAndNotEmpty,
+  isNotDefinedOrEmpty,
+} from "../utils/fp.util";
+
+const isAdmin = UserService.isConnectedAsAdmin(
+  (name) => Astro.cookies.get(name)?.value
+);
+
+if (!isAdmin) {
+  return Astro.redirect("/");
+}
+
+let message: string | undefined;
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const url = data.get("url") as string;
+    const title = data.get("title") as string;
+    const content = data.get("content") as string;
+    const tags = data.get("tags") as string;
+    const uid = new ShortUniqueId({ length: 10 });
+    if (isNotDefinedOrEmpty(url)) {
+      Astro.response.status = 400;
+      message = "URL is missing";
+    } else if (isNotDefinedOrEmpty(content)) {
+      Astro.response.status = 400;
+      message = "Content is missing";
+    } else if (isNotDefinedOrEmpty(content)) {
+      Astro.response.status = 400;
+      message = "Content is missing";
+    } else {
+      NewsService.addPost({
+        id: uid(),
+        url,
+        content,
+        title,
+        tags: tags
+          .split(",")
+          .map((t) => t.trim())
+          .filter(isDefinedAndNotEmpty),
+        creationDate: formatISO(new Date()),
+      });
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
+
+<Layout>
+  {isDefined(message) && message}
+  <NewPostForm />
+</Layout>
+
+<style></style>

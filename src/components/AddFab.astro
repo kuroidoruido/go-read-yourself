@@ -1,0 +1,29 @@
+---
+import { filePlus as filePlusIcon } from "lucide-static/lib";
+import { UserService } from "../services/user.service";
+
+const isConnected = UserService.isConnectedAsAdmin(
+  (name) => Astro.cookies.get(name)?.value
+);
+---
+
+{
+  isConnected && (
+    <a class="fab btn" href="/add">
+      <span set:html={filePlusIcon} />
+      Add
+    </a>
+  )
+}
+
+<style>
+  a.btn.fab {
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+  }
+</style>

@@ -1,0 +1,483 @@
+{
+  "news": [
+    {
+      "id": "uIw3AbFh5C",
+      "url": "https://javascript.developpez.com/actu/343360/La-specification-ECMAScript-2023-pour-JavaScript-inclut-de-nouvelles-methodes-pour-les-tableaux-notamment-la-possibilite-de-rechercher-un-element-dans-un-tableau-a-partir-de-la-fin-du-tableau/",
+      "content": "La spec 2023 de JavaScript vient de tomber, on y trouve des petites nouveautés mais rien de bien fou. Mais y'a sans doute des choses qui sont des gros attendus pour les développeurs de framework",
+      "title": "La spécification ECMAScript 2023 pour JavaScript inclut de nouvelles méthodes pour les tableaux, notamment la possibilité de rechercher un élément dans un tableau à partir de la fin du tableau",
+      "tags": [
+        "ECMAScript",
+        "JavaScript",
+        "TypeScript",
+        "Frontend",
+        "Backend"
+      ],
+      "creationDate": "2023-05-01T19:39:33+02:00"
+    },
+    {
+      "id": "SNPuAajVmz",
+      "url": "https://korben.info/google-authenticator-synchronisation-donnees-2fa.html",
+      "content": "Google vient de proposer la synchronisation via son compte Google des données de 2FA (Authentification à 2 Facteurs)... Et même pas en chiffrement bout en bout... Du génie !\r\n\r\nPour rappel : les infos 2FA (typiquement le code OTP qu'on a avec Google Authentificator) c'est un moyen de prouver qu'on possède un objet (contrairement au mot de passe qui est une preuve de connaissance), si vous le synchronisez sur un cloud ça prouve plus rien du tout. Et si c'est fait sans le bon niveau de chiffrement, là ça va forcément finir par leak et ne plus servir à rien\r\n\r\nBon bah plus qu'à trouver une autre app pour dégager Google Authentificator...",
+      "title": "Google Authenticator – Attention à la synchronisation des données 2FA !!",
+      "tags": [
+        "Sécurité",
+        "2FA",
+        "Google"
+      ],
+      "creationDate": "2023-05-01T19:38:13+02:00"
+    },
+    {
+      "id": "pCGnpEYdHD",
+      "url": "https://www.madmoizelle.com/comment-facebook-et-instagram-servent-a-orchestrer-le-trafic-sexuel-de-mineurs-1523717",
+      "content": "Sujet qui sort un peu de l'edito mais faites attention à votre entourage, en particulier les enfants et ados, par rapport aux réseaux sociaux qui sont exploités très fortement pour trafic de mineur avec des gros réseaux très bien orchestrés",
+      "title": "Comment Facebook et Instagram servent à orchestrer le trafic sexuel de mineurs",
+      "tags": [
+        "Réseaux sociaux",
+        "Trafic sexuel",
+        "Mineur",
+        "Pédophilie",
+        "Divers"
+      ],
+      "creationDate": "2023-05-01T19:37:40+02:00"
+    },
+    {
+      "id": "e3HHz1AL8y",
+      "url": "https://www.nitrokey.com/news/2023/smartphones-popular-qualcomm-chip-secretly-share-private-information-us-chip-maker",
+      "content": "Au moins une partie des puces Qualcomm envoie des infos d'elles même sans passer par l'OS vers des serveurs de Qualcomm, le tout sans consentement.\r\n\r\nOn parle souvent d'espionnage chinois mais l'espionnage américain on en parle ?",
+      "title": "Smartphones With Popular Qualcomm Chip Secretly Share Private Information With US Chip-Maker",
+      "tags": [
+        "Sécurité",
+        "Qualcomm",
+        "Vie privée"
+      ],
+      "creationDate": "2023-05-01T19:36:53+02:00"
+    },
+    {
+      "id": "gkd97P6xgj",
+      "url": "https://www.phonandroid.com/le-gouvernement-envisage-de-bannir-les-cyberharceleurs-des-reseaux-sociaux.html",
+      "content": "L'idée : un projet de Loi visant à interdire l'accès aux réseaux sociaux aux cyberharceleurs que ce soit avec les comptes actuels mais aussi de nouveau compte.\r\n\r\nDans l'idée pourquoi pas mais en pratique c'est impossible :\r\n- bloquer les comptes actuels demandent un accord avec les réseaux sociaux et/ou un listing officiel, ce qui va être compliqué à mettre en place\r\n- comment bloquer les nouveaux comptes ? Il faut identifier la personne elle-même sauf qu'on ne sait pas le faire de manière 100% fiable (l'adresse MAC dépend de l'appareil, la vérification d'identité pose des problèmes de sécurité, vie privée et RGPD, l'ip change dans le temps, etc.)\r\n- on pourrait voir pour faire un blocage sur les connexions internet (genre les opérateurs déploie une config sur la box ou agisse sur la connexion sur mobile) mais en mode verrou DNS c'est super simple à contourner (changer de DNS, VPN, proxy, Tor, etc.), y'a pas vraiment d'autres méthodes et c'est pas prévu pour cibler un utilisateur, et quid d'une carte SIM prépayé ?\r\n- interdire l'usage de matériel informatique ? Donc plus de PC, tablette, smartphone, console, etc.? Ça me paraît difficile de légiférer ça et encore plus de l'appliquer\r\n\r\nEn vrai la méthode japonaise qui consiste à aller jusqu'à des peines de prison me semble la plus pertinente : le cyber harcèlement est un acte grave qui doit être puni sévèrement",
+      "title": "Twitter, Facebook, Snapchat : le gouvernement envisage d'interdire les réseaux sociaux aux cyberharceleurs",
+      "tags": [
+        "Réseaux sociaux",
+        "Harcèlement"
+      ],
+      "creationDate": "2023-05-01T19:36:20+02:00"
+    },
+    {
+      "id": "EI7XIJNoHw",
+      "url": "https://blog.ataxya.net/de-proxmox-a-xcp-ng/",
+      "content": "REX sur l'utilisation de Promox et XCP-ng, ainsi qu'un peu d'explication sur la motivation à migrer du premier au second.\r\n\r\nJe ne fais jamais de virtualisation (pas le besoin aujourd'hui) mais j'aime bien lire ce genre de REX pour avoir une idée de ce qui se fait si un jour j'ai besoin de le faire",
+      "title": "De Proxmox à XCP-ng",
+      "tags": [
+        "Proxmox",
+        "XCP-ng",
+        "Virtualisation",
+        "Infra"
+      ],
+      "creationDate": "2023-05-01T19:35:28+02:00"
+    },
+    {
+      "id": "YsFGTz5qjf",
+      "url": "https://blog.1password.com/privacy-preserving-app-telemetry/",
+      "content": "1password va ajouter de la télémétrie dans son outil. Techniquement c'est même déjà le cas en bêta mais \"activé seulement pour nos employés\"",
+      "title": "We're changing how we discover and prioritize improvements",
+      "tags": [
+        "1password",
+        "Télémétrie",
+        "Analytics",
+        "Vie privée"
+      ],
+      "creationDate": "2023-05-01T19:34:53+02:00"
+    },
+    {
+      "id": "b7fuoVTI2Z",
+      "url": "https://raphael-lemaire.com/2022/12/11/mep-maj/",
+      "content": "Infographie montrant le rapport de taille des émissions de gaz à effet de serre en fonction des objets du quotidien et des usages. C'est pas complet évidemment, c'est des chiffres moyens aussi. Mais ça donne une idée. Clairement : faire culpabiliser les gens pour leur recharge de smartphone c'est une bonne blague",
+      "title": "Mise en perspective des impacts écologiques du numérique",
+      "tags": [
+        "GreenIT",
+        "Écologie"
+      ],
+      "creationDate": "2023-05-01T19:34:22+02:00"
+    },
+    {
+      "id": "rB8aI1ncZw",
+      "url": "https://medium.com/@dimitrilahaye/les-objets-callisth%C3%A9niques-ou-comment-coder-des-trucs-plus-l%C3%A9gers-qui-durent-plus-longtemps-27a7cd525e53",
+      "content": "L'idée de cet article c'est proposer des règles pour écrire du code objet qui sera plus résilient aux changements de code dans le temps.\r\n\r\nLes 9 règles énumérées par Jeff Bay sont les suivantes :\r\n\r\n1. One level of indentation per method\r\n2. Don’t use the ELSE keyword\r\n3. Wrap all primitives and Strings\r\n4. First class collections\r\n5. One dot per line\r\n6. Don’t abbreviate\r\n7. Keep all entities small\r\n8. No classes with more than two instance variables\r\n9. No getters/setters/properties\r\n\r\nÇa peut faire dogmatique, mais en lisant l'article je suis d'accord avec la majorité de ce qui est dit. Même si clairement on est forcément obligé de faire quelques entorses à ces règles",
+      "title": "Les objets callisthéniques, ou comment coder des trucs plus légers qui durent plus longtemps.",
+      "tags": [
+        "Dev"
+      ],
+      "creationDate": "2023-05-01T19:32:25+02:00"
+    },
+    {
+      "id": "SKEBhqeSdZ",
+      "url": "https://bastien.jaillot.fr/dette-technique-le-livre/",
+      "content": "L'auteur d'un livre sur la dette technique qui rend disponible gratuitement son livre à tous parce que l'éditeur a fermé",
+      "title": "Livre ",
+      "tags": [
+        "Dev",
+        "Backend",
+        "Frontend"
+      ],
+      "creationDate": "2023-05-01T19:31:22+02:00"
+    },
+    {
+      "id": "fAqFJYXusa",
+      "url": "https://lehollandaisvolant.net/?id=20230415192717",
+      "content": "8 moteurs et 3 batteries pour faire 1.7 millions de kilomètres. Ça fait un moteur tous les ~150 000 km et 1 batterie tous les ~ 500 000 km, pour une moyenne de 190km parcouru chaque jour\r\n\r\nBon déjà le gars fait un truc non sens qui sur utilise la voiture et donc augmente forcément l'usure (plus de chauffe, plus de mise en contrainte, vu la distance journalière parcouru il doit appuyer bien fort sur l'accélérateur, etc.). Ensuite batterie et moteur sont les 2 seules pièces d'usure liées à la conduite (sauf erreur) donc le reste peu importe le nombre de kilomètres ne s'use que très peu, c'est clairement pas le cas sur une voiture thermique. Faire ce genre de choses n'a aucun sens (rien que la comparaison avec les records thermiques qui sont avec le meme moteur) mais ça montre quand même que les EV tiennent plutôt la route à priori\r\n\r\nPar contre c'est un Allemand qui a fait ça donc écologiquement c'est une catastrophe : comme l'électricité allemande c'est essentiellement du gaz et du charbon, il fait rouler sa Tesla au gaz et au charbon indirectement, c'est pas ouf... En effet un EV c'est \"sans émission de gaz à effet de serre\" une fois qu'on l'a construit mais il faut que l'électricité soit propre pour ça, sinon on ne fait que déporter la production de CO2 plus loin.\r\n\r\nJ'en profite aussi pour évoquer ce comparatif EV/Thermique avec pour but de savoir \"Dans quels cas est-il pertinent de remplacer un véhicule thermique par un véhicule électrique, et dans quels cas est-ce contreproductif ?\" https://twitter.com/BARLANicolas1/status/1649866840728825856?s=20",
+      "title": "Cette Tesla Model S a parcouru 1,7 million de kilomètres, mais le moteur a été changé 8 fois !",
+      "tags": [
+        "Voiture",
+        "Voiture électrique",
+        "Société",
+        "Divers"
+      ],
+      "creationDate": "2023-05-01T19:30:57+02:00"
+    },
+    {
+      "id": "on9UYEkO87",
+      "url": "https://www.phonandroid.com/twitter-le-gouvernement-americain-a-acces-a-vos-messages-prives-affirme-elon-musk.html",
+      "content": "Quand soudain Elun Musk découvre les Lois américaines qui sont là pour privé de leurs libertés les gens protéger les citoyens américains des méchants terroristes... Oui le gouvernement américain peut lire nos DM Twitter mais c'est le cas aussi pour Messenger, Whats'App, Instagram, iMessage, etc. Toutes les messageries qui sont hébergés par des sociétés américaines doivent être lisibles par le gouvernement.\r\n\r\nEt je dis \"hébergés par\" pas \"construite par\", si vous créez une messagerie française hébergés sur AWS sur la zone Europe voir française vous êtes soumis au Cloud Act. Pour une entreprise européenne il suffit de faire du chiffrement bout en bout et le Privacy Shield fera que vous ne serez pas obligé à mettre une porte dérobée normalement dans votre chiffrement (même si [l'Allemagne commence à l'exiger aussi](https://www.developpez.com/actu/311037/Un-tribunal-allemand-oblige-le-fournisseur-de-messagerie-chiffree-Tutanota-a-installer-une-porte-derobee-pour-permettre-aux-enqueteurs-de-lire-des-courriels-suite-a-une-tentative-de-chantage/)), en tout cas au moins pour vos utilisateurs européens.",
+      "title": "Twitter : le gouvernement américain a accès à vos messages privés, affirme Elon Musk",
+      "tags": [
+        "PatriotAct",
+        "CloudAct",
+        "Twitter",
+        "Elun Musk",
+        "Cloud"
+      ],
+      "creationDate": "2023-05-01T19:29:46+02:00"
+    },
+    {
+      "id": "R2qEHkinQm",
+      "url": "https://www.phonandroid.com/samsung-aurait-beaucoup-a-perdre-en-remplacant-google-par-bing-selon-cet-expert.html",
+      "content": "Samsung a évoqué la possibilité de changer le moteur de recherche par défaut sur ses appareils par Bing. C'est dit dans l'article mais ça n'arrivera pas : si vous voulez pré-installer le play store sur vos appareils vous devez signer un contrat avec Google qui va vous imposer tout un tas de règles comme le fait d'avoir Google comme moteur de recherche par défaut globalement partout où c'est légalement possible (en plus de pré-installer toute la suite Google dont une partie non désinstallable...). Samsung ne peut pas se permettre de perdre le play store, il suffit de voir le mal que ça a fait à Huawei (à cause des décrets de Trump interdisant la collaboration avec les entreprises chinoises, confirmés ensuite par Biden) pour le vérifier.\r\n\r\nPar contre Samsung pourrait peut-être proposer aux utilisateurs le choix entre Google et Bing en présentant les avantages de Bing sur Google sur la partie IA. À suivre",
+      "title": "Samsung aurait beaucoup à perdre en remplaçant Google par Bing, selon cet expert",
+      "tags": [
+        "Google",
+        "Samsung",
+        "Android",
+        "Moteur de recherche"
+      ],
+      "creationDate": "2023-05-01T19:28:33+02:00"
+    },
+    {
+      "id": "uLn45aoXYL",
+      "url": "https://www.phonandroid.com/chatgpt-vous-ne-croirez-jamais-combien-le-chatbot-coute-chaque-jour-a-openai.html",
+      "content": "TLDR :\r\n- 0.33 cent par requête\r\n- presque 30 000 GPU en NVidia A100\r\n- $700 000 / jour dépensé en infra\r\n\r\nJe ne suis pas inquiet vu qu'il y a Microsoft derrière, financièrement ça tient (au moins pour l'instant) mais on voit le coût énorme que représente les IA generative, c'est impressionnant mais on en est qu'au début parce que le nombre d'utilisateur ne cesse de monter. Ça ne pourra pas rester gratuit longtemps (je sais qu'il y a des abonnements mais beaucoup l'utilisent gratuitement et s'en contente)\r\n\r\nEt là on n'évoque pas le coût écologique",
+      "title": "ChatGPT : vous ne croirez jamais combien le chatbot coûte chaque jour à OpenAI",
+      "tags": [
+        "ChatGPT",
+        "IA",
+        "OpenAI"
+      ],
+      "creationDate": "2023-05-01T19:27:47+02:00"
+    },
+    {
+      "id": "u1AIvyxbYi",
+      "url": "https://www.phonandroid.com/samsung-la-galaxy-ring-serait-si-performante-quelle-eclipserait-les-galaxy-watch.html",
+      "content": "Ça fait pas mal d'années que j'entends parler de \"smart ring\" et toujours rien de concret. Le mieux que j'ai vu c'est des anneaux contenant un tag NFC (donc 100% passif) ou des genres de thermomètre. Si Samsung arrive à proposer quelque chose je pourrai être intéressé, mais ça dépendra forcément de la pertinence, du prix et de l'autonomie. Vous vous imaginez une batterie qui tient plus d'une journée autour du doigt ? Vous imaginez une écran autour de votre doigt ? Pourquoi faire ?",
+      "title": "Samsung : la Galaxy Ring serait si performante qu'elle pourrait éclipser les Galaxy Watch",
+      "tags": [
+        "Wearable",
+        "Samsung",
+        "Ring",
+        "Tech"
+      ],
+      "creationDate": "2023-05-01T19:27:15+02:00"
+    },
+    {
+      "id": "J3GqoDOFgy",
+      "url": "https://www.phonandroid.com/ils-lancent-leur-jeu-gratuitement-sur-bittorent-apres-avoir-ete-bannis-de-steam.html",
+      "content": "Ironmace, le studio derrière Dark and Darker, a décidé de distribuer son jeu via Bittorrent après avoir été banni de Steam (un autre studio les a attaqué pour plagiat). Quoi qu'on pense de Ironmace, c'est une bonne démonstration que le décentralisé est le seul moyen incensurable parce que Nexon (le studio attaquant Ironmace pour plagiat) ne peut pas bloquer cette distribution car il n'y a aucun acteur à cibler ici",
+      "title": "Ils lancent leur jeu gratuitement sur Bittorent après avoir été bannis de Steam",
+      "tags": [
+        "P2P",
+        "Décentralisé",
+        "Bittorrent",
+        "Jeux-videos"
+      ],
+      "creationDate": "2023-05-01T19:26:45+02:00"
+    },
+    {
+      "id": "YSLgtiyHw7",
+      "url": "https://www.universfreebox.com/article/545987/google-corrige-une-faille-activement-exploitee-mettez-rapidement-chrome-a-jour",
+      "content": "Mettez à jour vos Chrome car une faille activement exploité vient d'être patchée. À priori il serait possible d'exécuter du code sur la machine sans contrôle (ce qu'on appelle une \"exécution arbitraire\")",
+      "title": "Google corrige une faille activement exploitée, mettez rapidement Chrome à jour",
+      "tags": [
+        "Sécurité",
+        "Chrome",
+        "CVE"
+      ],
+      "creationDate": "2023-05-01T19:26:05+02:00"
+    },
+    {
+      "id": "l0s1tMgyOO",
+      "url": "https://www.universfreebox.com/article/546014/lesim-une-source-dinquietude-pour-les-operateurs",
+      "content": "Les opérateurs s'inquietes de la perte de contact entre eux et leurs clients du fait ne plus avoir besoin d'installer de SIM physique. En vrai ils s'inquietent surtout de voir qu'on aura bientôt besoin d'eux que pour le réseau et qu'on aura des boîtes qui feront uniquement de l'eSIM avec achat de gros sur la consommation en mixant les réseaux. Même chose sur les bénéfices sur l'itinerance où en arrivant dans un autre pays on pourra juste scanner un QRCode pour un forfait tourristique plus avantageux valable quelques jours/semaines",
+      "title": "L'eSIM, une source d'inquiétude pour les opérateurs",
+      "tags": [
+        "Télécoms",
+        "eSIM"
+      ],
+      "creationDate": "2023-05-01T19:24:48+02:00"
+    },
+    {
+      "id": "ine89f4RGB",
+      "url": "https://www.universfreebox.com/article/545958/orange-free-bouygues-et-sfr-baissent-leurs-emissions-de-gaz-a-effet-de-serre-mais",
+      "content": "Les opérateurs ont fait des efforts pour baisser leurs émissions de gaz à effet de serre mais globalement la tendance est toujours à la hausse. Il serait temps que toute l'industrie se pose des vraies questions et arrête le green-washing",
+      "title": "Orange, Free, Bouygues et SFR baissent leurs émissions de gaz à effet de serre mais...",
+      "tags": [
+        "Télécoms",
+        "Numérique",
+        "GreenIT",
+        "Écologie"
+      ],
+      "creationDate": "2023-05-01T19:24:19+02:00"
+    },
+    {
+      "id": "7WdzMyYSLR",
+      "url": "https://www.universfreebox.com/article/545635/le-createur-dovh-veut-racheter-qwant-le-moteur-de-recherche-francais",
+      "content": "OVH qui rachète Qwant... Dans l'idée pourquoi pas mais j'ai du mal à me dire qu'ils feront mieux que tout ce qui a été fait pour Qwant, un gouffre financier qui n'a mené à pas grand chose, et essentiellement basé sur Azure et Bing. On est loin de la solution souveraine qui est vendue. À suivre on verra bien",
+      "title": "Le créateur d'OVH veut racheter Qwant, le moteur de recherche français",
+      "tags": [
+        "OVH",
+        "Synfonium",
+        "Qwant",
+        "Cloud"
+      ],
+      "creationDate": "2023-05-01T19:23:36+02:00"
+    },
+    {
+      "id": "v45grtOOE0",
+      "url": "https://www.universfreebox.com/article/545519/free-leve-le-voile-sur-les-smartphones-compatibles-avec-lesim-pour-ses-abonnes",
+      "content": "Free vient de mettre à jour son listing des smartphones compatible avec l'eSIM (SIM virtuelle, donc juste basée sur le fait d'entrer un identifiant sur son téléphone et plus de placer une puce physique qu'on utilise que pour ça) mais aussi la VoLTE (Voice Over LTE, le fait de pouvoir téléphoner en utiliser le réseau 4g), VoWifi (Voice Over Wifi, pour passer des appels via la Wifi pour une meilleure stabilité) et la HD/HD+ (pour avoir une meilleure qualité d'appel).\r\n\r\nLe listing est plus bien à jour parce que j'y retrouve mon smartphone (OnePlus 11) sorti il y a un peu plus d'un mois\r\n\r\nLien direct vers le listing : https://assistance-1.free.fr/mobile/terminaux/\r\n\r\nC'est une très bonne idée de tout regrouper car Orange par exemple il y a un listing uniquement pour la VoWifi et pas super à jour : https://reseaux.orange.fr/nos-reseaux/internet-fixe/appels-wifi",
+      "title": "Free lève le voile sur les smartphones compatibles avec l'eSIM pour ses abonnés",
+      "tags": [
+        "Smartphone",
+        "VoLTE",
+        "VoWifi",
+        "eSIM",
+        "Télécoms",
+        "Tech"
+      ],
+      "creationDate": "2023-05-01T19:23:00+02:00"
+    },
+    {
+      "id": "kfvSpqE3Fr",
+      "url": "https://www.universfreebox.com/article/545397/android-vers-une-localisation-des-smartphones-possible-meme-lorsquils-sont-eteints",
+      "content": "Donc prochainement même éteint notre smartphone continuera de bouffer notre batterie et leaker notre vie privée pour créer un super réseau maillé avec tous les smartphone Android... Du coup avec Android 14 on ne pourra plus couper totalement notre Bluetooth comme c'est déjà le cas avec la wifi...",
+      "title": "Android : vers une localisation des smartphones possible, même lorsqu'ils sont éteints",
+      "tags": [
+        "Android",
+        "Vie privée",
+        "Tech"
+      ],
+      "creationDate": "2023-05-01T19:21:51+02:00"
+    },
+    {
+      "id": "ZUL7W647ME",
+      "url": "https://www.madmoizelle.com/pilule-abortive-quest-ce-que-le-misoprostol-1521103",
+      "content": "Article assez court sur le misoprostol qui est un des médicaments de base pour les pilule abortive. À priori on risque une pénurie de ce médicament en France et ça c'est un vrai problème ! L'avortement c'est une décision qui ne peut pas être décalé...\r\n\r\nCe n'est pas indiqué dans l'article mais il y a de forte chance que ce soit dû au fait qu'on importe ce médicament en grande partie, sans doute de Chine comme énormément de nos médicaments. En soit ça ne me pose aucun problème de consommer des médicaments chinois mais je trouve absurde de ne pas produire en France (ou chez nos voisins directs européens) la majeure partie de tous les médicaments clés qu'on consommes. Oui ça coûterait sans doute un peu plus cher (encore que avec l'automatisation pas forcément) mais clairement on y gagnerait en résilience, en autonomie et aussi écologiquement. Je pense qu'on a assez vu à quel point on dépend de la Chine pour tout à un niveau absurde en 2020/2021 pour ne pas agir aujourd'hui pour corriger ça (et ce n'est pas un discours anti-chinois ou anti-mondialisation, c'est pas ça le problème)",
+      "title": "Pilule abortive : qu’est-ce que le misoprostol ?",
+      "tags": [
+        "Société",
+        "Santé",
+        "Divers"
+      ],
+      "creationDate": "2023-05-01T19:18:14+02:00"
+    },
+    {
+      "id": "4QcTM82tD6",
+      "url": "https://astral.sh/",
+      "content": "C'est déjà le cas depuis quelques temps côté JavaScript de créer les nouveaux outils en Rust pour gagner en perf comparé aux outils écrit en JS. À priori la tendance commence à se répendre au Python aussi qui a un tooling à priori lent et inconsistant",
+      "title": "Astral: Next-gen Python tooling",
+      "tags": [
+        "Python",
+        "Rust",
+        "Tooling"
+      ],
+      "creationDate": "2023-05-01T19:16:19+02:00"
+    },
+    {
+      "id": "mZ1qjMIosN",
+      "url": "https://www.ghacks.net/2023/04/17/firefox-may-interact-with-cookie-prompts-automatically-soon/",
+      "content": "Firefox pourrait prochainement cliquer sur le bon bouton pour bloquer les cookies automatiquement ! Ce sera évidemment pas parfait mais clairement ça pourrait devenir un vrai gros gain d'effort mental !",
+      "title": "Firefox may soon reject Cookie prompts automatically",
+      "tags": [
+        "Firefox",
+        "Cookie",
+        "Vie privée",
+        "Divers",
+        "Web"
+      ],
+      "creationDate": "2023-05-01T19:15:42+02:00"
+    },
+    {
+      "id": "sF96HpKOv0",
+      "url": "https://www.fileside.app/blog/2023-03-17_windows-file-paths/",
+      "content": "Un article assez complet sur tout l'enfer que sont les Paths Windows...",
+      "title": "The weird world of Windows file paths",
+      "tags": [
+        "Windows",
+        "Tech",
+        "Divers"
+      ],
+      "creationDate": "2023-05-01T19:14:39+02:00"
+    },
+    {
+      "id": "Zv262KVxJs",
+      "url": "https://code-garage.fr/blog/les-plugins-vs-code-qui-vous-feront-gagner-du-temps/",
+      "content": "Nicolas nous propose 9 plugins pour être plus efficace avec VSCode. Je note en particulier WebHint qui donne des indications sur les bonnes pratiques d'accessibilité, et ErrorLens pour avoir un affichage sans survole des messages d'erreurs !",
+      "title": "Les 9 plugins VS Code qui vous feront gagner du temps",
+      "tags": [
+        "Frontend",
+        "Backend",
+        "JavaScript",
+        "TypeScript",
+        "VSCode",
+        "Dev"
+      ],
+      "creationDate": "2023-05-01T19:14:01+02:00"
+    },
+    {
+      "id": "UZGTQQZK1v",
+      "url": "https://code-garage.fr/blog/la-mauvaise-pratique-a-bannir-dans-vos-formulaires-vuejs/",
+      "content": "Article qui montre comment bien structurer un formulaire en VueJS. J'ai même envie de dire dans tous les cas car la structure que Nicolas présente est la structure qu'on devrait toujours avoir peu importe comment on gère nos formulaires !",
+      "title": "La mauvaise pratique à bannir dans vos formulaires VueJS",
+      "tags": [
+        "Frontend",
+        "VueJS",
+        "Form",
+        "Web"
+      ],
+      "creationDate": "2023-05-01T19:13:11+02:00"
+    },
+    {
+      "id": "2uNh8cAoIu",
+      "url": "https://dev.to/this-is-angular/whats-new-in-angular-16-375b",
+      "content": "Nicolas nous fait un résumé des nouveautés de la version 16 d'Angular qui devrait sortir dans très peu de temps. Au programme : signals, DestroyRef, required Input, esbuild et Angular Universal",
+      "title": "What's new in Angular 16",
+      "tags": [
+        "Angular",
+        "Frontend",
+        "Signals",
+        "Web"
+      ],
+      "creationDate": "2023-05-01T19:12:29+02:00"
+    },
+    {
+      "id": "aBW1Z2oSLC",
+      "url": "https://9to5mac.com/2023/04/07/ai-cracks-passwords-this-fast-how-to-protect/",
+      "content": "Utilisation d'une IA pour faire du crack de mot de passe. Pour le coup on vend la plus-value de l'IA mais j'ai pas l'impression que c'est mieux qu'un outil statistique mais je loupe peut-être quelque chose",
+      "title": "Terrifying study shows how fast AI can crack your passwords; here’s how to protect yourself",
+      "tags": [
+        "IA",
+        "Sécurité",
+        "Hack",
+        "Mot de passe"
+      ],
+      "creationDate": "2023-05-01T19:11:55+02:00"
+    },
+    {
+      "id": "ErpBAfVOew",
+      "url": "https://twitter.com/ponceto91/status/1645667998370258944?s=20",
+      "content": "[edrtree](https://github.com/solidiquis/erdtree) est un petit utilitaire écrit en Rust qui vient faire un mix entre la commande tree et la commande du pour proposer un outil CLI moderne !\r\n\r\nJ'en profite pour faire un coup de pub pour Olivier Poncet qui partage beaucoup de ses découvertes, de sa veille et les petits infos du jour sur Twitter !",
+      "title": "edrtree",
+      "tags": [
+        "tree",
+        "du",
+        "Rust",
+        "CLI"
+      ],
+      "creationDate": "2023-05-01T19:10:58+02:00"
+    },
+    {
+      "id": "VO6cngyKBI",
+      "url": "https://www.minimachines.net/actu/e-ink-spectra-6-lencre-couleur-nouvelle-generation-117648",
+      "content": "E-Ink sort une nouvelle version de ses écrans à encre électronique couleur. Oui j'ai bien dit couleur. Même si on est habitué aux écrans e-ink noir et blanc, des versions couleurs existent depuis déjà quelques années. Franchement au vu des photos on atteint un niveau de qualité de couleur hyper beau, on pourrait vraiment imaginer lire toute sorte de livre avec ça : artbook, magazines, comics, bandes dessinées, les pages couleurs des mangas, etc. En fait tout ce qui bloque aujourd'hui",
+      "title": "E Ink Spectra 6 : l'encre couleur nouvelle génération",
+      "tags": [
+        "Tech",
+        "Eink",
+        "Divers"
+      ],
+      "creationDate": "2023-05-01T19:08:25+02:00"
+    },
+    {
+      "id": "ysWEcnwI3W",
+      "url": "https://nedbatchelder.com/blog/202303/watchgha.html",
+      "content": "Petit utilitaire qu'on peut greffer à son dépôt git pour suivre ce qu'il se passe dans nos Github Actions en cours. C'est plutôt une bonne idée pour bosser avec au quotidien depuis quelques mois, c'est souvent assez peu pratique d'aller sur l'UI Github pour voir ce qu'il se passe...",
+      "title": "Watchgha",
+      "tags": [
+        "Git",
+        "Github Actions",
+        "CLI"
+      ],
+      "creationDate": "2023-05-01T19:06:49+02:00"
+    },
+    {
+      "id": "r6eEVzO9RU",
+      "url": "https://www.maxcountryman.com/articles/we-need-to-talk-about-vercel",
+      "content": "REX sur l'utilisation d'Astro avec Vercel, en particulier la gestion du cache CDN de Vercel qui ne fonctionne à priori pas toujours comme on s'y attend...\r\n\r\nLe point important de l'article c'est que globalement le service client n'a pas apporté grand-chose pour régler le problème... C'est dommage parce que pour avoir testé pour un site Astro (sans chercher à faire de config particulière) je trouve l'expérience développeur excellente !",
+      "title": "We Need To Talk About Vercel",
+      "tags": [
+        "Vercel",
+        "CDN",
+        "Customer Service",
+        "Cloud"
+      ],
+      "creationDate": "2023-05-01T19:05:54+02:00"
+    },
+    {
+      "id": "8w9ESYviSa",
+      "url": "https://twitter.com/1repas1euro/status/1643667210244587520?s=20",
+      "content": "Rien à voir avec mes sujets habituels mais c'est un sujet important : les TCA ou Trouble du Comportement Alimentaire. Un thread REX de ce que c'est d'avoir des TCA. Si vous ne savez pas ce que c'est important d'aller lire !\r\n\r\nEt au passage, j'en profite pour vous conseiller le livre de recette de l'autrice du thread [1 repas 1 euro](https://www.placedeslibraires.fr/livre/9782263180842-1-repas-1-euro-marina-1repas1euro/). Il est pas cher (10.95€), il est super clair, il explique bien des recettes super simples et les recettes n'utilisent que des ingrédients pas cher !",
+      "title": "je voulais faire un thread : ce que mes TCA m'ont fait faire.",
+      "tags": [
+        "Société",
+        "Santé",
+        "Divers"
+      ],
+      "creationDate": "2023-05-01T19:04:25+02:00"
+    },
+    {
+      "id": "otSAVt7eT8",
+      "url": "https://windows.developpez.com/actu/343099/Le-jour-ou-Windows-est-mort-par-Thomas-Bandt/",
+      "content": "Témoignage d'un père qui voulait installer un Windows 11 avec un profil dédié à ton fil de 10 ans mais qui finalement n'a été que déçu par l'OS et toutes les nouvelles pratiques en terme de bloatware, de pub et de télémétrie...\r\n\r\nJe crois qu'on trouve dans ce témoignage tout ce qui me tue dans les systèmes dit \"moderne\" : on a plus la main pour faire nos propres choix, nos choix ne rentrent plus en compte, c'est d'abord les gains d'argent des grosses entreprises qui priment... C'est dommage parce qu'il y a longtemps je bricolais aussi avec des vieux Windows (95, 98, 2000 ou XP) à une époque où on pouvait encore faire des choses vraiment intéressantes, maintenant peu importe l'OS c'est pleins de trucs dont j'essaie de me débarrasser. Y'a encore que sous mon ArchLinux que j'arrive globalement à avoir ce dont j'ai besoin sans superflu...",
+      "title": "Le jour où Windows est mort, par Thomas Bandt",
+      "tags": [
+        "Windows",
+        "Tech"
+      ],
+      "creationDate": "2023-05-01T19:02:15+02:00"
+    },
+    {
+      "id": "n5SZvCrRpz",
+      "url": "https://blog.gitea.io/2023/03/hacking-on-gitea-actions/",
+      "content": "Gitea (alternative à Github/Gitlab en auto hébergement et super léger) vient d'introduire en preview \"Gitea Actions\" en se basant sur des runner Act qui sont prévus pour exécuter en local du Github Actions.\r\n\r\nDonc globalement on devrait pouvoir prochainement sans trop de prise de tête utiliser des workflows Github Actions avec Gitea !",
+      "title": "Hacking on Gitea Actions",
+      "tags": [
+        "Git",
+        "CI",
+        "Gitea"
+      ],
+      "creationDate": "2023-05-01T19:00:19+02:00"
+    },
+    {
+      "id": "FpEmFGdd46hS2mum",
+      "compiled": true,
+      "title": "Pico-GB-Cart : Une cartouche de GameBoy sous RP2040",
+      "creationDate": "2023-03-23 23:19:00",
+      "url": "https://www.minimachines.net/actu/pico-gb-cart-gameboy-raspberry-pi-rp2040-117136",
+      "tags": [
+        "GameBoy",
+        "Jeux-videos",
+        "Raspberry Pi",
+        "RP2040"
+      ],
+      "content": "Projet super intéressant d'une personne qui a fabriqué une cartouche de GameBoy à partir d'un Raspberry Pi Pico et qui permet de jouer à des rom GameBoy et GameBoy Color stockées sur une carte micro SD sans emulation ! J'espère très fortement que ce projet finira par être commercialisé ou rendu accessible (avec un kit PCBWay ou autre)!"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+---
+import { format, parseISO } from "date-fns";
+import { marked } from "marked";
+import CONFIG from "../../data/config.json";
+import Tag from "./Tag.astro";
+import TagContainer from "./TagContainer.astro";
+
+export interface Props {
+  news: NewsEntry;
+}
+
+const { news } = Astro.props;
+const formattedCreationDate = format(
+  parseISO(news.creationDate),
+  CONFIG.card.dateFormat
+);
+---
+
+<div class="card" data-news-id={news.id}>
+  <div class="card-title">
+    <a href={news.url}>{news.title}</a>
+  </div>
+  <TagContainer class="card-tags">
+    {news.tags.map((tag) => <Tag>{tag}</Tag>)}
+  </TagContainer>
+  <div class="card-content" set:html={marked.parse(news.content)} />
+  <div class="card-date">{formattedCreationDate}</div>
+</div>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 1px 1px 15px var(--color--primary-light);
+    padding: 16px;
+  }
+  .card .card-date {
+    text-align: end;
+  }
+</style>

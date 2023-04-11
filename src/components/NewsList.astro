@@ -1,0 +1,14 @@
+---
+import NewsCard from "../components/NewsCard.astro";
+import { NewsService } from "../services/news.service";
+---
+
+<div class="news-container">
+  {NewsService.getNews().news.map((entry) => <NewsCard news={entry} />)}
+</div>
+
+<style>
+  .news-container {
+    padding: 32px;
+  }
+</style>

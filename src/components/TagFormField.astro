@@ -1,0 +1,37 @@
+---
+import { NewsService } from "../services/news.service";
+import TagContainer from "./TagContainer.astro";
+import Tag from "./Tag.astro";
+---
+
+<div class="field">
+  <input name="tags" type="text" placeholder="Tags" />
+  <TagContainer class="extra existing-tags">
+    {NewsService.getTags().map((tag) => <Tag>{tag}</Tag>)}
+  </TagContainer>
+</div>
+
+<script>
+  import { dedup } from "../utils/array.util";
+
+  const tagField = document.querySelector<HTMLInputElement>(
+    'form .field input[name="tags"]'
+  );
+  const tags = document.querySelectorAll<HTMLSpanElement>(
+    "form .field .extra .tag"
+  );
+  tags.forEach((tagElt) => {
+    tagElt.addEventListener("click", () => {
+      if (tagField) {
+        if (tagField.value.length === 0) {
+          tagField.value = tagElt.textContent ?? "";
+        } else {
+          tagField.value = dedup([
+            ...tagField.value.split(",").map((tag) => tag.trim()),
+            tagElt.textContent ?? "",
+          ]).join(", ");
+        }
+      }
+    });
+  });
+</script>

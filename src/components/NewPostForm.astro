@@ -1,0 +1,74 @@
+---
+import { refreshCw as refreshCwIcon } from "lucide-static/lib";
+import TagFormField from "./TagFormField.astro";
+---
+
+<form method="POST">
+  <div class="field">
+    <input type="text" name="url" placeholder="Source" />
+    <div class="actions">
+      <button
+        type="button"
+        title="Retry grab metadata"
+        id="retry-grab-metadata"
+        set:html={refreshCwIcon}
+      />
+    </div>
+  </div>
+  <div class="field">
+    <input type="text" name="title" placeholder="Title" />
+  </div>
+  <div class="field">
+    <select id="title-candidates"></select>
+  </div>
+
+  <div class="field">
+    <textarea name="content" placeholder="Content"></textarea>
+  </div>
+  <TagFormField />
+  <button class="btn">Publish</button>
+</form>
+
+<style>
+  form {
+    max-width: 600px;
+    margin: 32px auto;
+    box-shadow: 1px 1px 15px var(--color--primary-light);
+    padding: 32px;
+  }
+</style>
+
+<script>
+  const urlField = document.querySelector<HTMLInputElement>(
+    'form .field input[name="url"]'
+  );
+  const retryGrabMetadataButton = document.querySelector<HTMLButtonElement>(
+    "#retry-grab-metadata"
+  );
+  const titleField = document.querySelector<HTMLInputElement>(
+    'form .field input[name="title"]'
+  );
+  const titleCandidatesSelect =
+    document.querySelector<HTMLSelectElement>("#title-candidates");
+  urlField?.addEventListener("change", grabMetadata);
+  retryGrabMetadataButton?.addEventListener("click", grabMetadata);
+
+  async function grabMetadata() {
+    const url = urlField?.value;
+    if (url && url.length > 0) {
+      const res: { titles: string[] } = await fetch(
+        `/grab-metadata?url=${encodeURI(url)}`
+      ).then((res) => res.json());
+      console.log({ res });
+      titleCandidatesSelect!.innerHTML =
+        "<option></option>" +
+        res.titles
+          .map((opt) => `<option value="${opt}">${opt}</option>`)
+          .join("");
+    }
+  }
+
+  titleCandidatesSelect?.addEventListener("change", () => {
+    titleField!.value = titleCandidatesSelect.value;
+  });
+</script>

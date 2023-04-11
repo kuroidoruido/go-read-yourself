@@ -1,0 +1,58 @@
+---
+import {
+  logOut as logOutIcon,
+  newspaper as newspaperIcon,
+  rss as rssIcon,
+} from "lucide-static/lib";
+import { UserService } from "../services/user.service";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const isConnected = UserService.isConnectedAsAdmin(
+  (name) => Astro.cookies.get(name)?.value
+);
+---
+
+<header>
+  <a href="/">{title}</a>
+  <div class="right-part">
+    <a href="/feed.xml">
+      <span set:html={rssIcon} />
+      RSS
+    </a>
+    {
+      isConnected && (
+        <>
+          <a href="/compile">
+            <span set:html={newspaperIcon} />
+            Compile
+          </a>
+          <a href="/signout">
+            <span set:html={logOutIcon} />
+            Sign out
+          </a>
+        </>
+      )
+    }
+  </div>
+</header>
+
+<style>
+  header {
+    box-shadow: 1px 1px 15px var(--color--primary-light);
+    padding: 16px 64px;
+    display: flex;
+    justify-content: space-between;
+  }
+  header a {
+    display: flex;
+    align-items: center;
+  }
+  header .right-part {
+    display: flex;
+    gap: 1rem;
+  }
+</style>

@@ -1,0 +1,53 @@
+---
+import Layout from "../layouts/Layout.astro";
+import type USERS from "../../data/users.json";
+import { UserService } from "../services/user.service";
+
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const email = data.get("email") as keyof typeof USERS;
+    const password = data.get("password") as string;
+
+    if (
+      UserService.authenticate(
+        email,
+        password,
+        (name: string, value: string, expires: Date) =>
+          Astro.cookies.set(name, value, { expires })
+      )
+    ) {
+      return Astro.redirect("/");
+    } else {
+      console.info(`Cannot identify user ${email}`);
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
+
+<Layout>
+  <form method="POST">
+    <div class="field">
+      <label for="email">Email:</label>
+      <input id="email" type="email" name="email" />
+    </div>
+    <div class="field">
+      <label for="password">Password:</label>
+      <input id="password" type="password" name="password" />
+    </div>
+    <button class="btn">Sign in</button>
+  </form>
+</Layout>
+
+<style>
+  form {
+    box-shadow: 1px 1px 15px var(--color--primary-light);
+    padding: 64px;
+    max-width: 600px;
+    margin: 48px auto;
+  }
+</style>

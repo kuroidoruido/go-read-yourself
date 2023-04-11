@@ -1,0 +1,31 @@
+---
+import NEWS from "../../data/news.json";
+import Layout from "../layouts/Layout.astro";
+
+function formatOneNews(news: NewsEntry) {
+  return `### [${news.title}](${encodeURI(news.url)})
+\\${news.tags.map((tag) => "#" + tag.replaceAll(" ", "-")).join(" ")}
+
+${news.content}
+    `;
+}
+
+const mardownFile = NEWS.news
+  .filter((news) => !news.compiled)
+  .map(formatOneNews)
+  .reverse()
+  .join("\n\n");
+---
+
+<Layout noFAB>
+  <textarea set:html={mardownFile} />
+</Layout>
+
+<style>
+  textarea {
+    width: 90vw;
+    height: 80vh;
+    margin: 2rem auto;
+    display: block;
+  }
+</style>
