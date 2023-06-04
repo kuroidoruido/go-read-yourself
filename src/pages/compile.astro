@@ -5,6 +5,15 @@ import {
 } from "lucide-static/lib";
 import Layout from "../layouts/Layout.astro";
 import { NewsService } from "../services/news.service";
+import { UserService } from "../services/user.service";
+
+const isAdmin = UserService.isConnectedAsAdmin(
+  (name) => Astro.cookies.get(name)?.value
+);
+
+if (!isAdmin) {
+  return Astro.redirect("/");
+}
 
 if (Astro.url.searchParams.has("markAsCompiled")) {
   const postToMarkAsCompiled = Astro.url.searchParams
