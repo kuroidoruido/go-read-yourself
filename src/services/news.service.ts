@@ -1,14 +1,19 @@
-import { cp, writeFileSync } from "node:fs";
-import NEWS from "../../data/news.json";
+import { readFileSync, writeFileSync } from "node:fs";
 import { dedup } from "../utils/array.util";
 
+const NEWS_PATH = "./data/news.json";
+
 class NewsServiceImpl {
-  getNews() {
-    return NEWS;
+  getNews(): NewsPosts {
+    return JSON.parse(readFileSync(NEWS_PATH, { encoding: "utf-8" }));
+  }
+
+  private writeNews(news: NewsPosts) {
+    writeFileSync(NEWS_PATH, JSON.stringify(news, undefined, 2));
   }
 
   getTags() {
-    const tags = dedup(NEWS.news.flatMap((n) => n.tags));
+    const tags = dedup(this.getNews().news.flatMap((n) => n.tags));
     tags.sort((a, b) =>
       a.toLocaleLowerCase().localeCompare(b.toLocaleLowerCase())
     );
@@ -17,10 +22,24 @@ class NewsServiceImpl {
 
   addPost(newsEntry: NewsEntry) {
     console.log("NewsServiceImpl.addPost", { newsEntry });
-    writeFileSync(
-      "./data/news.json",
-      JSON.stringify({ ...NEWS, news: [newsEntry, ...NEWS.news] }, undefined, 2)
-    );
+    const newsPosts = this.getNews();
+    this.writeNews({ ...newsPosts, news: [newsEntry, ...newsPosts.news] });
+  }
+
+  getPostsToCompile() {
+    return this.getNews()
+      .news.filter((news) => !news.compiled)
+      .reverse();
+  }
+
+  markPostsAsCompiled(postIds: string[]) {
+    const newsPosts = this.getNews();
+    this.writeNews({
+      ...newsPosts,
+      news: newsPosts.news.map((n) =>
+        postIds.includes(n.id) ? { ...n, compiled: true } : n
+      ),
+    });
   }
 }
 

@@ -9,12 +9,28 @@
 }
 
 /* BUTTON */
-button.btn, a.btn {
+button.btn,
+a.btn {
   padding: 8px 16px;
   border: none;
   border-radius: 8px;
   background-color: var(--color--primary);
   color: var(--color--white);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 3px 3px 10px lightgray;
+  cursor: pointer;
+  font-size: 13.3333px;
+}
+
+a.btn {
+  text-decoration: none;
+}
+
+button.btn:active,
+a.btn:active {
+  box-shadow: none;
 }
 
 /* FORM */

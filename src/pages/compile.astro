@@ -1,6 +1,18 @@
 ---
-import NEWS from "../../data/news.json";
+import {
+  copy as copyIcon,
+  listChecks as listChecksIcon,
+} from "lucide-static/lib";
 import Layout from "../layouts/Layout.astro";
+import { NewsService } from "../services/news.service";
+
+if (Astro.url.searchParams.has("markAsCompiled")) {
+  const postToMarkAsCompiled = Astro.url.searchParams
+    .get("markAsCompiled")!
+    .split(",");
+  console.log("Mark as compiled", postToMarkAsCompiled);
+  NewsService.markPostsAsCompiled(postToMarkAsCompiled);
+}
 
 function formatOneNews(news: NewsEntry) {
   return `### [${news.title}](${encodeURI(news.url)})
@@ -10,18 +22,36 @@ ${news.content}
     `;
 }
 
-const mardownFile = NEWS.news
-  .filter((news) => !news.compiled)
-  .map(formatOneNews)
-  .reverse()
-  .join("\n\n");
+const postsToCompile = NewsService.getPostsToCompile();
+const postIdsToCompile = postsToCompile.map((post) => post.id);
+const mardownFile = postsToCompile.map(formatOneNews).join("\n\n");
 ---
 
 <Layout noFAB>
-  <textarea set:html={mardownFile} />
+  <div class="actions">
+    <button class="btn" id="copy-btn">
+      <span set:html={copyIcon} />
+      <span>Copy</span>
+    </button>
+    <a
+      class="btn"
+      id="mark-compiled-btn"
+      href={`/compile?markAsCompiled=${postIdsToCompile.join(",")}`}
+    >
+      <span set:html={listChecksIcon} />
+      <span>Mark as compiled</span>
+    </a>
+  </div>
+  <textarea set:html={mardownFile} id="compiled-textarea" />
 </Layout>
 
 <style>
+  .actions {
+    width: 90vw;
+    margin: 2rem auto;
+    display: flex;
+    gap: 8px;
+  }
   textarea {
     width: 90vw;
     height: 80vh;
@@ -29,3 +59,15 @@ const mardownFile = NEWS.news
     display: block;
   }
 </style>
+
+<script>
+  document
+    .querySelector<HTMLButtonElement>("#copy-btn")
+    ?.addEventListener("click", () => {
+      const textarea =
+        document.querySelector<HTMLTextAreaElement>("#compiled-textarea");
+      if (textarea && textarea.textContent) {
+        navigator.clipboard.writeText(textarea.textContent);
+      }
+    });
+</script>
