@@ -3,24 +3,29 @@ import nodeCrypto from "node:crypto";
 import { mkdtempSync, rmdirSync, statSync } from "node:fs";
 import nodePath from "node:path";
 import { tmpdir } from "node:os";
-import CONFIG from "../../data/config.json";
-import USERS from "../../data/users.json";
+import { readFileSync } from "node:fs";
+import { ConfigService } from "./config.service";
+
+const USERS_PATH = "./data/users.json";
 
 const COOKIE_TOKEN_NAME = "GoReadYourself__auth";
 const COOKIE_TOKEN_DIR_PREFIX = `${COOKIE_TOKEN_NAME}__`;
 
 class UserServiceImpl {
+  private getUsers(): AppUsers {
+    return JSON.parse(readFileSync(USERS_PATH, { encoding: "utf-8" }));
+  }
   authenticate(
-    email: keyof typeof USERS,
+    email: Email,
     password: string,
     setCookie: (name: string, value: string, expires: Date) => void
   ) {
     try {
       const hash = nodeCrypto
-        .createHmac("sha256", password + CONFIG.user.salt)
+        .createHmac("sha256", password + ConfigService.getConfig().user.salt)
         .digest("hex");
       console.log("hashed password that will be checked", hash);
-      if (USERS[email]?.password === hash) {
+      if (this.getUsers()[email]?.password === hash) {
         const tmpDir = tmpdir();
         const tokenDir = mkdtempSync(
           nodePath.join(tmpDir, COOKIE_TOKEN_DIR_PREFIX)
@@ -43,6 +48,9 @@ class UserServiceImpl {
       const token = getCookie(COOKIE_TOKEN_NAME);
       const tmpDir = tmpdir();
       const tokenDir = nodePath.join(tmpDir, token ?? "__invalid");
+      if (tokenDir.endsWith("__invalid")) {
+        return false;
+      }
 
       const tokenDirStat = statSync(tokenDir);
       if (
