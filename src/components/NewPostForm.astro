@@ -63,12 +63,12 @@ import TagFormField from "./TagFormField.astro";
       titleCandidatesSelect!.innerHTML =
         "<option></option>" +
         res.titles
-          .map((opt) => `<option value="${opt}">${opt}</option>`)
+          .map((opt) => `<option value="${btoa(opt)}">${opt}</option>`)
           .join("");
     }
   }
 
   titleCandidatesSelect?.addEventListener("change", () => {
-    titleField!.value = titleCandidatesSelect.value;
+    titleField!.value = atob(titleCandidatesSelect.value);
   });
 </script>
