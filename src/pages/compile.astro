@@ -28,7 +28,7 @@ function formatOneNews(news: NewsEntry) {
 \\${news.tags.map((tag) => "#" + tag.replaceAll(" ", "-")).join(" ")}
 
 ${news.content}
-    `;
+`;
 }
 
 const postsToCompile = NewsService.getPostsToCompile();
