@@ -27,7 +27,11 @@ export function compilePostsAsFormattedMarkdown(
   if (groups.length === 1) {
     return formatAll(postsGroupedByTags[groups[0]!]!);
   }
-  return [...byTags, defaultGroupName]
+  const tags = [...byTags];
+  if (!tags.includes(defaultGroupName)) {
+    tags.push(defaultGroupName);
+  }
+  return tags
     .filter((tag) => isDefined(postsGroupedByTags[tag]))
     .map((group) => `## ${group}\n\n${formatAll(postsGroupedByTags[group]!)}`)
     .join("\n");
