@@ -59,7 +59,7 @@ if (Astro.request.method === "POST") {
 }
 ---
 
-<Layout>
+<Layout noFAB>
   {isDefined(message) && message}
   <NewPostForm />
 </Layout>
