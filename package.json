@@ -14,16 +14,15 @@
     "@astrojs/node": "^6.1.0",
     "@astrojs/rss": "^3.0.0",
     "astro": "^3.6.4",
-    "date-fns": "^2.29.3",
-    "jsdom": "^21.1.1",
-    "lucide-static": "^0.127.0",
-    "marked": "^4.3.0",
-    "short-unique-id": "^4.4.4"
+    "date-fns": "^2.30.0",
+    "jsdom": "^23.0.1",
+    "lucide-static": "^0.294.0",
+    "marked": "^11.0.0",
+    "short-unique-id": "^5.0.3"
   },
   "devDependencies": {
-    "@types/jsdom": "^21.1.1",
-    "@types/marked": "^4.0.8",
-    "@types/node": "^18.15.7",
+    "@types/jsdom": "^21.1.6",
+    "@types/node": "^20.10.3",
     "vitest": "^0.34.6"
   }
 }
