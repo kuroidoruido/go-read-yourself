@@ -3,7 +3,7 @@ import { JSDOM } from "jsdom";
 import { dedup } from "../utils/array.util";
 import { isDefined } from "../utils/fp.util";
 
-export const get: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ request }) => {
   const decodedUrl = new URL(request.url);
   const url = decodedUrl.searchParams.get("url");
   if (!url || url.length === 0) {

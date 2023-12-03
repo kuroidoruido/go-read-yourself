@@ -2,7 +2,7 @@ import rss from "@astrojs/rss";
 import { marked } from "marked";
 import NEWS from "../../data/news.json";
 
-export function get(context: any) {
+export function GET(context: any) {
   return rss({
     title: "Anthony Pena - revue de presse",
     description:
