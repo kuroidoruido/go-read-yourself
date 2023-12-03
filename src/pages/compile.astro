@@ -7,6 +7,7 @@ import Layout from "../layouts/Layout.astro";
 import { NewsService } from "../services/news.service";
 import { UserService } from "../services/user.service";
 import { compilePostsAsFormattedMarkdown } from "../utils/compile.util";
+import CONFIG from "../../data/config.json";
 
 const isAdmin = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value
@@ -26,7 +27,10 @@ if (Astro.url.searchParams.has("markAsCompiled")) {
 
 const postsToCompile = NewsService.getPostsToCompile();
 const postIdsToCompile = postsToCompile.map((post) => post.id);
-const mardownFile = compilePostsAsFormattedMarkdown(postsToCompile);
+const mardownFile = compilePostsAsFormattedMarkdown(
+  postsToCompile,
+  CONFIG.compile
+);
 ---
 
 <Layout noFAB>

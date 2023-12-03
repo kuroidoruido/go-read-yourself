@@ -5,5 +5,9 @@
   },
   "card": {
     "dateFormat": "dd/MM/yyyy à HH:mm"
+  },
+  "compile": {
+    "byTags": ["Frontend", "Backend", "IA", "Sécurité", "Divers"],
+    "defaultGroupName": "Divers"
   }
 }
