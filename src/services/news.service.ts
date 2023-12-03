@@ -27,9 +27,7 @@ class NewsServiceImpl {
   }
 
   getPostsToCompile() {
-    return this.getNews()
-      .news.filter((news) => !news.compiled)
-      .reverse();
+    return this.getNews().news.filter((news) => !news.compiled);
   }
 
   markPostsAsCompiled(postIds: string[]) {

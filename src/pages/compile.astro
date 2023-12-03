@@ -6,6 +6,7 @@ import {
 import Layout from "../layouts/Layout.astro";
 import { NewsService } from "../services/news.service";
 import { UserService } from "../services/user.service";
+import { compilePostsAsFormattedMarkdown } from "../utils/compile.util";
 
 const isAdmin = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value
@@ -23,17 +24,9 @@ if (Astro.url.searchParams.has("markAsCompiled")) {
   NewsService.markPostsAsCompiled(postToMarkAsCompiled);
 }
 
-function formatOneNews(news: NewsEntry) {
-  return `### [${news.title}](${encodeURI(news.url)})
-\\${news.tags.map((tag) => "#" + tag.replaceAll(" ", "-")).join(" ")}
-
-${news.content}
-`;
-}
-
 const postsToCompile = NewsService.getPostsToCompile();
 const postIdsToCompile = postsToCompile.map((post) => post.id);
-const mardownFile = postsToCompile.map(formatOneNews).join("\n\n");
+const mardownFile = compilePostsAsFormattedMarkdown(postsToCompile);
 ---
 
 <Layout noFAB>
