@@ -63,7 +63,7 @@ import TagFormField from "./TagFormField.astro";
       titleCandidatesSelect!.innerHTML =
         "<option></option>" +
         res.titles
-          .map((opt) => `<option value="${btoa(opt)}">${opt}</option>`)
+          .map((opt) => `<option value="${btoa(opt.replaceAll(/[^\w\s]/g, '_'))}">${opt}</option>`)
           .join("");
     }
   }

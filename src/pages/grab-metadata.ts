@@ -7,16 +7,12 @@ export const GET: APIRoute = async ({ request }) => {
   const decodedUrl = new URL(request.url);
   const url = decodedUrl.searchParams.get("url");
   if (!url || url.length === 0) {
-    return { status: 400, body: "" };
+    return new Response("", { status: 400 });
   }
   const titles = await extractTitles(url);
   console.log({ titles });
 
-  return {
-    body: JSON.stringify({
-      titles,
-    }),
-  };
+  return new Response(JSON.stringify({ titles }), { status: 200 });
 };
 
 async function extractTitles(url: string): Promise<string[]> {
