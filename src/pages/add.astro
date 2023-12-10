@@ -40,7 +40,7 @@ if (Astro.request.method === "POST") {
       message = "Content is missing";
     } else {
       NewsService.addPost({
-        id: uid(),
+        id: uid.rnd(),
         url,
         content,
         title,
