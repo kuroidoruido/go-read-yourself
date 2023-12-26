@@ -33,6 +33,12 @@ a.btn:active {
   box-shadow: none;
 }
 
+.btn.secondary {
+  background-color: var(--color--white);
+  border: 1px solid var(--color--primary);
+  color: unset;
+}
+
 /* FORM */
 
 form {
