@@ -4,5 +4,17 @@ import NewsList from "../components/NewsList.astro";
 ---
 
 <Layout>
-  <NewsList />
+  <NewsList max={10} />
+  <a class="load-more" href="/all">Load more</a>
 </Layout>
+
+<style>
+  a.load-more {
+    display: block;
+    margin: 8px 32px;
+    padding: 16px;
+    border: 1px solid var(--color--primary-light);
+    border-radius: 8px;
+    text-align: center;
+  }
+</style>

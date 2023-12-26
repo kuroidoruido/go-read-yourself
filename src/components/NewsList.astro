@@ -1,10 +1,17 @@
 ---
 import NewsCard from "../components/NewsCard.astro";
 import { NewsService } from "../services/news.service";
+
+interface Props {
+  max?: number
+}
+
+const { max : maxPost = Number.MAX_SAFE_INTEGER } = Astro.props
+
 ---
 
 <div class="news-container">
-  {NewsService.getNews().news.map((entry) => <NewsCard news={entry} />)}
+  {NewsService.getNews().news.slice(0, maxPost).map((entry) => <NewsCard news={entry} />)}
 </div>
 
 <style>
