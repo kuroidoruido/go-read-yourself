@@ -69,6 +69,6 @@ import TagFormField from "./TagFormField.astro";
   }
 
   titleCandidatesSelect?.addEventListener("change", () => {
-    titleField!.value = atob(titleCandidatesSelect.value);
+    titleField!.value = titleCandidatesSelect.textContent ?? atob(titleCandidatesSelect.value);
   });
 </script>
