@@ -50,8 +50,19 @@ import TagFormField from "./TagFormField.astro";
   );
   const titleCandidatesSelect =
     document.querySelector<HTMLSelectElement>("#title-candidates");
-  urlField?.addEventListener("change", grabMetadata);
+  urlField?.addEventListener("change", cleanupLink(grabMetadata));
   retryGrabMetadataButton?.addEventListener("click", grabMetadata);
+
+  function cleanupLink(next) {
+    return () => {
+      const url = urlField?.value;
+      // cleanup youtube links
+      if (url?.includes('youtu.be')) {
+        urlField!.value = url.split('?')[0] ?? '';
+      }
+      return next()
+    }
+  }
 
   async function grabMetadata() {
     const url = urlField?.value;
