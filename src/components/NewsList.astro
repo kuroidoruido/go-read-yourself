@@ -10,7 +10,7 @@ const { max : maxPost = Number.MAX_SAFE_INTEGER } = Astro.props
 
 ---
 
-<div class="news-container">
+<div class="news-container" data-testid="news-container">
   {NewsService.getNews().news.slice(0, maxPost).map((entry) => <NewsCard news={entry} />)}
 </div>
 

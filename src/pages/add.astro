@@ -35,9 +35,6 @@ if (Astro.request.method === "POST") {
     } else if (isNotDefinedOrEmpty(content)) {
       Astro.response.status = 400;
       message = "Content is missing";
-    } else if (isNotDefinedOrEmpty(content)) {
-      Astro.response.status = 400;
-      message = "Content is missing";
     } else {
       NewsService.addPost({
         id: uid.rnd(),

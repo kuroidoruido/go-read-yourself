@@ -4,11 +4,13 @@
   "version": "0.4.0",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
+    "start": "astro dev --host 0.0.0.0",
     "build": "astro build",
     "preview": "astro preview",
     "test": "vitest",
-    "astro": "astro"
+    "astro": "astro",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@astrojs/node": "^6.1.0",
@@ -21,6 +23,7 @@
     "short-unique-id": "^5.0.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.1",
     "@types/jsdom": "^21.1.6",
     "@types/node": "^20.10.3",
     "vitest": "^0.34.6"
