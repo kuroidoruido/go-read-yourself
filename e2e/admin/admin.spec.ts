@@ -22,6 +22,9 @@ test("no admin page links are availabel before sign in", async ({ page }) => {
   await homePo.gotoHome();
 
   await expect(page.getByRole("link", { name: "Compile" })).not.toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Info", exact: true })
+  ).not.toBeVisible();
   await expect(page.getByRole("link", { name: "Sign out" })).not.toBeVisible();
   await expect(page.getByRole("link", { name: "Add" })).not.toBeVisible();
 });
@@ -38,6 +41,9 @@ test("can sign in and see admin features", async ({ page }) => {
   await adminPo.signin();
   await expect(page.getByTestId("news-container")).toBeVisible();
   await expect(page.getByRole("link", { name: "Compile" })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Info", exact: true })
+  ).toBeVisible();
   await expect(page.getByRole("link", { name: "Sign out" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Add" })).toBeVisible();
 });
@@ -73,6 +79,9 @@ test("sign out hide admin features", async ({ page }) => {
   await adminPo.signin();
   await expect(page.getByTestId("news-container")).toBeVisible();
   await expect(page.getByRole("link", { name: "Compile" })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Info", exact: true })
+  ).toBeVisible();
   await expect(page.getByRole("link", { name: "Sign out" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Add" })).toBeVisible();
 
@@ -80,6 +89,9 @@ test("sign out hide admin features", async ({ page }) => {
 
   await expect(page.getByTestId("news-container")).toBeVisible();
   await expect(page.getByRole("link", { name: "Compile" })).not.toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Info", exact: true })
+  ).not.toBeVisible();
   await expect(page.getByRole("link", { name: "Sign out" })).not.toBeVisible();
   await expect(page.getByRole("link", { name: "Add" })).not.toBeVisible();
 });

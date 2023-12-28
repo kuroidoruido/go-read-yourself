@@ -1,0 +1,30 @@
+---
+import GeneralInfos from "../components/info/GeneralInfos.astro";
+import ConfigInfos from "../components/info/ConfigInfos.astro";
+import RawData from "../components/info/RawData.astro";
+import Layout from "../layouts/Layout.astro";
+import { UserService } from "../services/user.service";
+
+const isAdmin = UserService.isConnectedAsAdmin(
+  (name) => Astro.cookies.get(name)?.value
+);
+
+if (!isAdmin) {
+  return Astro.redirect("/");
+}
+---
+
+<Layout>
+  <main>
+    <h1>Infos</h1>
+    <GeneralInfos />
+    <ConfigInfos />
+    <RawData />
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin: 8px 32px;
+  }
+</style>

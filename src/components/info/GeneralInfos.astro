@@ -1,0 +1,29 @@
+---
+import { version, dependencies } from "../../../package.json";
+import { packages } from "../../../package-lock.json";
+---
+
+<fieldset>
+  <legend>General</legend>
+  <ul>
+    <li>Version: <span>{version}</span></li>
+    <li>
+      Astro: <span>{packages["node_modules/astro"].version}</span>
+      <ul>
+        {
+          Object.keys(dependencies)
+            .filter((dep) => dep.startsWith("@astro"))
+            .map((dep) => [
+              dep,
+              (packages as any)["node_modules/" + dep].version,
+            ])
+            .map(([dep, depVersion]) => (
+              <li>
+                {dep}: <span>{depVersion}</span>
+              </li>
+            ))
+        }
+      </ul>
+    </li>
+  </ul>
+</fieldset>

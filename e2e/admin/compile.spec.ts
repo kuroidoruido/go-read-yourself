@@ -15,6 +15,11 @@ test("compile page correctly displayed", async ({ page }) => {
   await adminCompilePo.copyVisible();
   await adminCompilePo.markAsCompileVisible();
   await adminCompilePo.checkTextbox(/## Frontend/);
+  await adminCompilePo.checkTextbox(/## Sécurité/);
+  await adminCompilePo.checkTextbox(/## Divers/);
+  await adminCompilePo.checkTextbox(
+    /### \[La spécification ECMAScript 2023 pour JavaScript inclut de nouvelles méthodes pour les tableaux, notamment la possibilité de rechercher un élément dans un tableau à partir de la fin du tableau\]\(https:\/\/javascript.developpez.com\/actu\/343360\/La-specification-ECMAScript-2023-pour-JavaScript-inclut-de-nouvelles-methodes-pour-les-tableaux-notamment-la-possibilite-de-rechercher-un-element-dans-un-tableau-a-partir-de-la-fin-du-tableau\/\)/
+  );
 });
 
 test("copy should copy textbox", async ({ page, context }) => {

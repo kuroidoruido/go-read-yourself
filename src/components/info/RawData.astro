@@ -1,0 +1,32 @@
+---
+import newsJson from "../../../data/news.json";
+import usersJson from "../../../data/users.json";
+import { UserService } from "../../services/user.service";
+
+const isAdmin = UserService.isConnectedAsAdmin(
+  (name) => Astro.cookies.get(name)?.value
+);
+---
+
+{
+  isAdmin && (
+    <fieldset>
+      <legend>Raw data</legend>
+      <details>
+        <summary>news.json</summary>
+        <textarea>{JSON.stringify(newsJson, undefined, 2)}</textarea>
+      </details>
+      <details>
+        <summary>users.json</summary>
+        <textarea>{JSON.stringify(usersJson, undefined, 2)}</textarea>
+      </details>
+    </fieldset>
+  )
+}
+
+<style>
+  textarea {
+    width: 100%;
+    min-height: 20rem;
+  }
+</style>

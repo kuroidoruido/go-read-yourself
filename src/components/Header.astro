@@ -1,5 +1,6 @@
 ---
 import {
+  info as infoIcon,
   logOut as logOutIcon,
   newspaper as newspaperIcon,
   rss as rssIcon,
@@ -21,7 +22,7 @@ const isConnected = UserService.isConnectedAsAdmin(
   <div class="right-part">
     <a href="/feed.xml">
       <span set:html={rssIcon} />
-      RSS
+       RSS
     </a>
     {
       isConnected && (
@@ -29,6 +30,10 @@ const isConnected = UserService.isConnectedAsAdmin(
           <a href="/compile">
             <span set:html={newspaperIcon} />
             Compile
+          </a>
+          <a href="/info">
+            <span set:html={infoIcon} />
+            Info
           </a>
           <a href="/signout">
             <span set:html={logOutIcon} />

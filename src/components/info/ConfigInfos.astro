@@ -1,0 +1,11 @@
+---
+import CONFIG from "../../../data/config.json";
+import { hideSensibleData } from "../../utils/security.util";
+---
+
+<fieldset>
+  <legend>Config</legend>
+  <code
+    ><pre>{JSON.stringify(hideSensibleData(CONFIG), undefined, 4)}</pre></code
+  >
+</fieldset>
