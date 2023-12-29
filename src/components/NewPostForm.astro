@@ -27,9 +27,9 @@ import TagFormField from "./TagFormField.astro";
   </div>
   <TagFormField />
   <button class="btn">Publish</button>
-  <br/>
-  <br/>
-  <br/>
+  <br />
+  <br />
+  <br />
   <button class="btn secondary" type="reset">Reset</button>
 </form>
 
@@ -37,7 +37,8 @@ import TagFormField from "./TagFormField.astro";
   form {
     max-width: 600px;
     margin: 32px auto;
-    box-shadow: 1px 1px 15px var(--color--primary-light);
+    background-color: var(--card--background-color);
+    box-shadow: 1px 1px 15px var(--border-shadow);
     padding: 32px;
   }
 </style>
@@ -57,15 +58,15 @@ import TagFormField from "./TagFormField.astro";
   urlField?.addEventListener("change", cleanupLink(grabMetadata));
   retryGrabMetadataButton?.addEventListener("click", grabMetadata);
 
-  function cleanupLink(next) {
+  function cleanupLink(next: VoidFunction) {
     return () => {
       const url = urlField?.value;
       // cleanup youtube links
-      if (url?.includes('youtu.be')) {
-        urlField!.value = url.split('?')[0] ?? '';
+      if (url?.includes("youtu.be")) {
+        urlField!.value = url.split("?")[0] ?? "";
       }
-      return next()
-    }
+      return next();
+    };
   }
 
   async function grabMetadata() {
@@ -78,12 +79,18 @@ import TagFormField from "./TagFormField.astro";
       titleCandidatesSelect!.innerHTML =
         "<option></option>" +
         res.titles
-          .map((opt) => `<option value="${btoa(opt.replaceAll(/[^\w\s]/g, '_'))}">${opt}</option>`)
+          .map(
+            (opt) =>
+              `<option value="${btoa(
+                opt.replaceAll(/[^\w\s]/g, "_")
+              )}">${opt}</option>`
+          )
           .join("");
     }
   }
 
   titleCandidatesSelect?.addEventListener("change", () => {
-    titleField!.value = titleCandidatesSelect.textContent ?? atob(titleCandidatesSelect.value);
+    titleField!.value =
+      titleCandidatesSelect.textContent ?? atob(titleCandidatesSelect.value);
   });
 </script>

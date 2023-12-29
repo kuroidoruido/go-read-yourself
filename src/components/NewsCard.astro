@@ -32,8 +32,9 @@ const formattedCreationDate = format(
     display: flex;
     flex-direction: column;
     gap: 16px;
-    box-shadow: 1px 1px 15px var(--color--primary-light);
+    box-shadow: 1px 1px 15px var(--border-shadow);
     padding: 16px;
+    background-color: var(--card--background-color);
   }
   .card .card-date {
     text-align: end;
@@ -44,6 +45,6 @@ const formattedCreationDate = format(
   .card[data-news-id] .card-content blockquote {
     margin: 8px 16px;
     padding: 0 16px;
-    border-left: 4px solid var(--color--primary-light);
+    border-left: 4px solid var(--card--blockquote-border);
   }
 </style>

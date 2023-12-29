@@ -47,7 +47,8 @@ const isConnected = UserService.isConnectedAsAdmin(
 
 <style>
   header {
-    box-shadow: 1px 1px 15px var(--color--primary-light);
+    background-color: var(--card--background-color);
+    box-shadow: 1px 1px 15px var(--border-shadow);
     padding: 16px 64px;
     display: flex;
     justify-content: space-between;
@@ -55,5 +56,13 @@ const isConnected = UserService.isConnectedAsAdmin(
   header .right-part {
     display: flex;
     gap: 1rem;
+  }
+  header a,
+  header a:visited {
+    color: var(--page--text-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 </style>

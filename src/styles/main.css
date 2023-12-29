@@ -1,11 +1,64 @@
 :root {
-  --color--white: rgba(255, 255, 255, 1);
-  --color--black: rgba(0, 0, 0, 1);
+  --color--white: #ffffff;
+  --color--black: #000000;
 
-  --color--primary-light: rgba(239, 217, 250, 1);
-  --color--primary: rgba(159, 89, 195, 1);
-  --color--primary-dark: rgba(89, 21, 124, 1);
-  --color--primary-darker: rgba(38, 2, 57, 1);
+  --color--primary-light: #efd9fa;
+  --color--primary: #9f59c3;
+  --color--primary-dark: #59157c;
+  --color--primary-darker: #260239;
+  --color--primary-darkest: #0f0117;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --border-shadow: var(--color--primary-light);
+
+    --page--background-color: var(--color--white);
+    --page--text-color: var(--color--black);
+    --link--text-color: var(--color--primary-darker);
+    --btn--background-color: var(--color--primary);
+    --btn--text-color: var(--color--white);
+    --btn--secondary-background-color: var(--color--white);
+    --btn--secondary-text-color: var(--page--text-color);
+    --btn--secondary-border-color: var(--color--primary);
+    --tag--background-color: var(--color--primary-light);
+    --tag--text-color: var(--color--primary-darker);
+    --card--background-color: var(--color--white);
+    --card--blockquote-border: var(--color--primary-light);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --border-shadow: transparent;
+
+    --page--background-color: #262626;
+    --page--text-color: #dcdcdc;
+    --link--text-color: var(--color--primary);
+    --btn--background-color: var(--color--primary);
+    --btn--text-color: var(--color--white);
+    --btn--secondary-background-color: var(--page--background-color);
+    --btn--secondary-text-color: var(--page--text-color);
+    --btn--secondary-border-color: var(--color--primary);
+    --tag--background-color: var(--color--primary-dark);
+    --tag--text-color: var(--color--primary-light);
+    --card--background-color: #191919;
+    --card--blockquote-border: var(--color--primary-dark);
+  }
+
+  img[src$=".png"] {
+    filter: invert(1) hue-rotate(180deg) saturate(3);
+  }
+}
+
+body {
+  background-color: var(--page--background-color);
+  color: var(--page--text-color);
+}
+
+a,
+a:visited {
+  color: var(--link--text-color);
 }
 
 /* BUTTON */
@@ -14,12 +67,12 @@ a.btn {
   padding: 8px 16px;
   border: none;
   border-radius: 8px;
-  background-color: var(--color--primary);
-  color: var(--color--white);
+  background-color: var(--btn--background-color);
+  color: var(--text-color);
   display: flex;
   align-items: center;
   gap: 4px;
-  box-shadow: 3px 3px 10px lightgray;
+  box-shadow: 3px 3px 10px var(--border-shadow);
   cursor: pointer;
   font-size: 13.3333px;
 }
@@ -34,8 +87,9 @@ a.btn:active {
 }
 
 .btn.secondary {
-  background-color: var(--color--white);
-  border: 1px solid var(--color--primary);
+  background-color: var(--btn--secondary-background-color);
+  color: var(--btn--secondary-text-color);
+  border: 1px solid var(--btn--secondary-border-color);
   color: unset;
 }
 
