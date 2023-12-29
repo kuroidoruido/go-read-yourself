@@ -1,11 +1,13 @@
 ---
-import CONFIG from "../../../data/config.json";
+import { ConfigService } from "../../services/config.service";
 import { hideSensibleData } from "../../utils/security.util";
+
+const config = ConfigService.getConfig();
 ---
 
 <fieldset>
   <legend>Config</legend>
   <code
-    ><pre>{JSON.stringify(hideSensibleData(CONFIG), undefined, 4)}</pre></code
+    ><pre>{JSON.stringify(hideSensibleData(config), undefined, 4)}</pre></code
   >
 </fieldset>

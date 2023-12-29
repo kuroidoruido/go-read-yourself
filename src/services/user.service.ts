@@ -12,9 +12,10 @@ const COOKIE_TOKEN_NAME = "GoReadYourself__auth";
 const COOKIE_TOKEN_DIR_PREFIX = `${COOKIE_TOKEN_NAME}__`;
 
 class UserServiceImpl {
-  private getUsers(): AppUsers {
+  getUsers(): AppUsers {
     return JSON.parse(readFileSync(USERS_PATH, { encoding: "utf-8" }));
   }
+
   authenticate(
     email: Email,
     password: string,

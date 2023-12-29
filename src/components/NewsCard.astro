@@ -1,9 +1,9 @@
 ---
 import { format, parseISO } from "date-fns";
 import { marked } from "marked";
-import CONFIG from "../../data/config.json";
 import Tag from "./Tag.astro";
 import TagContainer from "./TagContainer.astro";
+import { ConfigService } from "../services/config.service";
 
 export interface Props {
   news: NewsEntry;
@@ -12,7 +12,7 @@ export interface Props {
 const { news } = Astro.props;
 const formattedCreationDate = format(
   parseISO(news.creationDate),
-  CONFIG.card.dateFormat
+  ConfigService.getConfig().card.dateFormat
 );
 ---
 

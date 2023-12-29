@@ -7,7 +7,7 @@ import Layout from "../layouts/Layout.astro";
 import { NewsService } from "../services/news.service";
 import { UserService } from "../services/user.service";
 import { compilePostsAsFormattedMarkdown } from "../utils/compile.util";
-import CONFIG from "../../data/config.json";
+import { ConfigService } from "../services/config.service";
 
 const isAdmin = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value
@@ -29,7 +29,7 @@ const postsToCompile = NewsService.getPostsToCompile();
 const postIdsToCompile = postsToCompile.map((post) => post.id);
 const mardownFile = compilePostsAsFormattedMarkdown(
   postsToCompile,
-  CONFIG.compile
+  ConfigService.getConfig().compile
 );
 ---
 

@@ -6,6 +6,10 @@ declare interface AppConfig {
   card: {
     dateFormat: string;
   };
+  compile: {
+    byTags: string[];
+    defaultGroupName: string;
+  };
 }
 
 declare type Email = string;

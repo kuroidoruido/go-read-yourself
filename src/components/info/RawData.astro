@@ -1,6 +1,5 @@
 ---
-import newsJson from "../../../data/news.json";
-import usersJson from "../../../data/users.json";
+import { NewsService } from "../../services/news.service";
 import { UserService } from "../../services/user.service";
 
 const isAdmin = UserService.isConnectedAsAdmin(
@@ -14,11 +13,15 @@ const isAdmin = UserService.isConnectedAsAdmin(
       <legend>Raw data</legend>
       <details>
         <summary>news.json</summary>
-        <textarea>{JSON.stringify(newsJson, undefined, 2)}</textarea>
+        <textarea>
+          {JSON.stringify(NewsService.getNews(), undefined, 2)}
+        </textarea>
       </details>
       <details>
         <summary>users.json</summary>
-        <textarea>{JSON.stringify(usersJson, undefined, 2)}</textarea>
+        <textarea>
+          {JSON.stringify(UserService.getUsers(), undefined, 2)}
+        </textarea>
       </details>
     </fieldset>
   )

@@ -1,6 +1,6 @@
 import rss from "@astrojs/rss";
 import { marked } from "marked";
-import NEWS from "../../data/news.json";
+import { NewsService } from "../services/news.service";
 
 export function GET(context: any) {
   return rss({
@@ -8,7 +8,7 @@ export function GET(context: any) {
     description:
       "Les éléments qui captent le plus mon attention quand je fais ma veille.",
     site: context.site,
-    items: NEWS.news.map((entry) => ({
+    items: NewsService.getNews().news.map((entry) => ({
       title: entry.title,
       link: entry.url,
       pubDate: new Date(entry.creationDate),

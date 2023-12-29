@@ -1,8 +1,8 @@
 ---
-import { title } from "../../data/config.json";
 import AddFab from "../components/AddFab.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import { ConfigService } from "../services/config.service";
 
 import "../styles/main.css";
 
@@ -11,9 +11,10 @@ interface Props {
 }
 
 const { noFAB = false } = Astro.props;
+const { title } = ConfigService.getConfig();
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
