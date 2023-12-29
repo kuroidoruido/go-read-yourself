@@ -5,6 +5,9 @@ import { UserService } from "../../services/user.service";
 const isAdmin = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value
 );
+
+const newsJson = JSON.stringify(NewsService.getNews(), undefined, 2);
+const usersJson = JSON.stringify(UserService.getUsers(), undefined, 2);
 ---
 
 {
@@ -13,15 +16,11 @@ const isAdmin = UserService.isConnectedAsAdmin(
       <legend>Raw data</legend>
       <details>
         <summary>news.json</summary>
-        <textarea>
-          {JSON.stringify(NewsService.getNews(), undefined, 2)}
-        </textarea>
+        <textarea>{newsJson}</textarea>
       </details>
       <details>
         <summary>users.json</summary>
-        <textarea>
-          {JSON.stringify(UserService.getUsers(), undefined, 2)}
-        </textarea>
+        <textarea>{usersJson}</textarea>
       </details>
     </fieldset>
   )
