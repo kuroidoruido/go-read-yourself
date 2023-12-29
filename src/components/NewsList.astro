@@ -3,20 +3,26 @@ import NewsCard from "../components/NewsCard.astro";
 import { NewsService } from "../services/news.service";
 
 interface Props {
-  max?: number
+  max?: number;
 }
 
-const { max : maxPost = Number.MAX_SAFE_INTEGER } = Astro.props
-
+const { max: maxPost = Number.MAX_SAFE_INTEGER } = Astro.props;
 ---
 
 <div class="news-container" data-testid="news-container">
-  {NewsService.getNews().news.slice(0, maxPost).map((entry) => <NewsCard news={entry} />)}
+  {
+    NewsService.getNews()
+      .news.slice(0, maxPost)
+      .map((entry) => <NewsCard news={entry} />)
+  }
 </div>
 
 <style>
   .news-container {
     padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   @media (width <= 700px) {
