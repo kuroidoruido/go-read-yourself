@@ -13,6 +13,7 @@ import Tag from "./Tag.astro";
 
 <script>
   import { dedup } from "../utils/array.util";
+  import { isNotBlank } from "../utils/fp.util";
 
   const tagField = document.querySelector<HTMLInputElement>(
     'form .field input[name="tags"]'
@@ -27,7 +28,10 @@ import Tag from "./Tag.astro";
           tagField.value = tagElt.textContent ?? "";
         } else {
           tagField.value = dedup([
-            ...tagField.value.split(",").map((tag) => tag.trim()),
+            ...tagField.value
+              .split(",")
+              .filter(isNotBlank)
+              .map((tag) => tag.trim()),
             tagElt.textContent ?? "",
           ]).join(", ");
         }
