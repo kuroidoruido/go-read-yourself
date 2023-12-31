@@ -6,6 +6,11 @@ const YOUTUBE_URL_CLEAN = "https://youtu.be/RL6vPya6BVY";
 const YOUTUBE_URL_TITLE = "L'HISTOIRE DU RICKROLL ! - YouTube";
 const CONTENT_SAMPLE =
   "L'histoire du rickroll de 4chan à la diffusion partout ! Je ne savais pas d'où ça venait maintenant je sais 😁";
+/**
+ * StyleX url is used the page have multiple titles
+ */
+const STYLEX_URL = "https://stylexjs.com/";
+const STYLEX_URL_TITLE = "StyleX";
 
 test("can access add a post page", async ({ page, context }) => {
   const homePo = new HomePo(page);
@@ -53,12 +58,12 @@ test("should be able to set the title from source page title candidates", async 
   await homePo.navigateToAdminAdd();
   await adminAddPo.addFormVisible();
 
-  await adminAddPo.pasteInUrlField(YOUTUBE_URL);
+  await adminAddPo.pasteInUrlField(STYLEX_URL);
   await page
     .getByRole("combobox", { name: "Title candidates" })
-    .selectOption(YOUTUBE_URL_TITLE);
+    .selectOption(STYLEX_URL_TITLE);
   await expect(page.getByRole("textbox", { name: "Title" })).toHaveValue(
-    YOUTUBE_URL_TITLE
+    STYLEX_URL_TITLE
   );
 });
 

@@ -90,7 +90,10 @@ import TagFormField from "./TagFormField.astro";
   }
 
   titleCandidatesSelect?.addEventListener("change", () => {
+    const selectedOption = titleCandidatesSelect.querySelector(
+      `option[value="${titleCandidatesSelect.value}"]`
+    );
     titleField!.value =
-      titleCandidatesSelect.textContent ?? atob(titleCandidatesSelect.value);
+      selectedOption?.textContent ?? atob(titleCandidatesSelect.value);
   });
 </script>
