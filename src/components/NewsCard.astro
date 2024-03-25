@@ -35,9 +35,18 @@ const formattedCreationDate = format(
     box-shadow: 1px 1px 15px var(--border-shadow);
     padding: 16px;
     background-color: var(--card--background-color);
-  }
-  .card .card-date {
-    text-align: end;
+
+    .card-content {
+      pre {
+        width: 100%;
+        overflow-x: auto;
+        padding: 1rem;
+      }
+    }
+
+    .card-date {
+      text-align: end;
+    }
   }
 </style>
 

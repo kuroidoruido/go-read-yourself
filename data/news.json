@@ -1,6 +1,16 @@
 {
   "news": [
     {
+      "id": "q59w1Uliip",
+      "url": "https://frontendmasters.com/blog/how-to-favicon-in-2024/",
+      "content": "Je reporte :\r\n\r\n```\r\n<link rel=\"icon\" href=\"/favicon.ico\" sizes=\"32x32\">\r\n<link rel=\"icon\" href=\"/icon.svg\" type=\"image/svg+xml\">\r\n<link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png\"><!-- 180×180 -->\r\n<link rel=\"manifest\" href=\"/manifest.webmanifest\">\r\n\r\n// manifest.webmanifest\r\n{\r\n  \"icons\": [\r\n    { \"src\": \"/icon-192.png\", \"type\": \"image/png\", \"sizes\": \"192x192\" },\r\n    { \"src\": \"/icon-512.png\", \"type\": \"image/png\", \"sizes\": \"512x512\" }\r\n  ]\r\n}\r\n```",
+      "title": "How to Favicon in 2024 – Frontend Masters Boost",
+      "tags": [
+        "Frontend"
+      ],
+      "creationDate": "2024-03-25T20:29:02+01:00"
+    },
+    {
       "id": "WOCLopnTQu",
       "url": "https://x.com/brandontroberts/status/1740218396577534113?s=20",
       "content": "Brandon Roberts s'est amusé à imaginer ce que pourrait être les fichiers .ng si on introduisait un fichier de ce type en mixant ce qui se fait chez Vue ou Svelte avec les ajouts récents et à venir d'Angular (Signals, inject, inline template, etc.)\r\n\r\nBeaucoup de réaction, certaines positives, certaines négatives. Aucune idée de si ça verra le jour dans l'avenir, mais personnellement j'en parle depuis quelques temps déjà que ce serait pour moi la suite logique de l'évolution d'Angular, et ça me parait une bonne idée, et je vais directement citer une de réponse de Brandon\r\n\r\n> To me it can fit where Angular is going:\r\n> - Simpler mental model for component authoring\r\n> - Similar to other frameworks\r\n> - Doesn't change services/pipes/etc.\r\n> - Works with existing concepts\r\n> - Works with new lifecycle hooks\r\n> - Can be compiled into current Angular standards\r\n\r\n",
