@@ -1,5 +1,6 @@
 ---
 import {
+  home as homeIcon,
   info as infoIcon,
   logOut as logOutIcon,
   newspaper as newspaperIcon,
@@ -18,26 +19,29 @@ const isConnected = UserService.isConnectedAsAdmin(
 ---
 
 <header>
-  <a class="title" href="/">{title}</a>
+  <a class="title" href="/"
+    ><span set:html={homeIcon} class="icon" /><span class="text">{title}</span
+    ></a
+  >
   <div class="right-part">
     <a href="/feed.xml">
-      <span set:html={rssIcon} />
-      RSS
+      <span set:html={rssIcon} class="icon" />
+      <span class="text">RSS</span>
     </a>
     {
       isConnected && (
         <>
           <a href="/compile">
-            <span set:html={newspaperIcon} />
-            Compile
+            <span set:html={newspaperIcon} class="icon" />
+            <span class="text">Compile</span>
           </a>
           <a href="/info">
-            <span set:html={infoIcon} />
-            Info
+            <span set:html={infoIcon} class="icon" />
+            <span class="text">Info</span>
           </a>
           <a href="/signout">
-            <span set:html={logOutIcon} />
-            Sign out
+            <span set:html={logOutIcon} class="icon" />
+            <span class="text">Sign out</span>
           </a>
         </>
       )
@@ -68,8 +72,10 @@ const isConnected = UserService.isConnectedAsAdmin(
 
   @media (width < 700px) {
     header {
-      justify-content: right;
-      a.title {
+      a.title span.icon {
+        display: unset;
+      }
+      a span.text {
         display: none;
       }
     }
