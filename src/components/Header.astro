@@ -18,11 +18,11 @@ const isConnected = UserService.isConnectedAsAdmin(
 ---
 
 <header>
-  <a href="/">{title}</a>
+  <a class="title" href="/">{title}</a>
   <div class="right-part">
     <a href="/feed.xml">
       <span set:html={rssIcon} />
-       RSS
+      RSS
     </a>
     {
       isConnected && (
@@ -64,5 +64,14 @@ const isConnected = UserService.isConnectedAsAdmin(
     display: flex;
     align-items: center;
     gap: 4px;
+  }
+
+  @media (width < 700px) {
+    header {
+      justify-content: right;
+      a.title {
+        display: none;
+      }
+    }
   }
 </style>
