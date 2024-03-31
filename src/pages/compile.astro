@@ -8,7 +8,7 @@ import { NewsService } from "../services/news.service";
 import { UserService } from "../services/user.service";
 import { compilePostsAsFormattedMarkdown } from "../utils/compile.util";
 import { ConfigService } from "../services/config.service";
-import { marked } from "marked";
+import { checkLinks, renderPreview } from "../utils/preview.util";
 
 const isAdmin = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value
@@ -32,6 +32,8 @@ const mardownFile = compilePostsAsFormattedMarkdown(
   postsToCompile,
   ConfigService.getConfig().compile
 );
+const linksStatus = await checkLinks(postsToCompile.map((post) => post.url));
+const allLinksOk = linksStatus.every(({ status }) => status === "ok");
 ---
 
 <Layout noFAB>
@@ -49,11 +51,14 @@ const mardownFile = compilePostsAsFormattedMarkdown(
       <span set:html={listChecksIcon} />
       <span>Mark as compiled</span>
     </a>
+    <div class:list={["links-status", allLinksOk ? "links-ok" : "links-ko"]}>
+      {allLinksOk ? "All links are ok" : "Some links are invalids!"}
+    </div>
   </div>
   <section class="text-and-preview">
     <textarea set:html={mardownFile} id="compiled-textarea" />
     <article class="preview">
-      <main set:html={marked.parse(mardownFile)} />
+      <main set:html={renderPreview(mardownFile, linksStatus)} />
     </article>
   </section>
 </Layout>
@@ -64,6 +69,16 @@ const mardownFile = compilePostsAsFormattedMarkdown(
     margin: 2rem auto;
     display: flex;
     gap: 8px;
+    align-items: center;
+
+    .links-status {
+      &.links-ok {
+        color: green;
+      }
+      &.links-ko {
+        color: red;
+      }
+    }
   }
   .text-and-preview {
     width: 90vw;
@@ -90,6 +105,16 @@ const mardownFile = compilePostsAsFormattedMarkdown(
           overflow-x: auto;
           padding: 1rem;
           background-color: var(--color--black);
+        }
+        a.link-ok {
+          &&::before {
+            content: "✅ ";
+          }
+        }
+        a.link-ko {
+          &&::before {
+            content: "❌ ";
+          }
         }
       }
     }
