@@ -1,6 +1,7 @@
 ---
 import { refreshCw as refreshCwIcon } from "lucide-static/lib";
-import TagFormField from "./TagFormField.astro";
+import { TagFormField } from "./TagFormField.react";
+import { NewsService } from "../services/news.service";
 ---
 
 <form method="POST">
@@ -25,7 +26,7 @@ import TagFormField from "./TagFormField.astro";
   <div class="field">
     <textarea name="content" placeholder="Content" required></textarea>
   </div>
-  <TagFormField />
+  <TagFormField knownTags={NewsService.getTags()} client:load />
   <button class="btn">Publish</button>
   <br />
   <br />

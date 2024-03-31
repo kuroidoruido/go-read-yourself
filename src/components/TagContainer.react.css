@@ -1,0 +1,5 @@
+div.tag-container {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}

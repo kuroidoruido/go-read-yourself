@@ -34,7 +34,6 @@ export class AdminAddPo {
     await expect(
       this.page.getByRole("textbox", { name: "Tags" })
     ).toBeVisible();
-    await expect(this.page.getByTestId("tag")).not.toHaveCount(0);
     await expect(
       this.page.getByRole("button", { name: "Publish" })
     ).toBeVisible();

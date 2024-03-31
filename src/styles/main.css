@@ -138,3 +138,16 @@ form .field textarea {
 form .field .extra {
   flex: 1 0 100%;
 }
+
+form .field .input-group {
+  display: flex;
+
+  input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
