@@ -8,6 +8,7 @@ import { NewsService } from "../services/news.service";
 import { UserService } from "../services/user.service";
 import { compilePostsAsFormattedMarkdown } from "../utils/compile.util";
 import { ConfigService } from "../services/config.service";
+import { marked } from "marked";
 
 const isAdmin = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value
@@ -49,7 +50,12 @@ const mardownFile = compilePostsAsFormattedMarkdown(
       <span>Mark as compiled</span>
     </a>
   </div>
-  <textarea set:html={mardownFile} id="compiled-textarea" />
+  <section class="text-and-preview">
+    <textarea set:html={mardownFile} id="compiled-textarea" />
+    <article class="preview">
+      <main set:html={marked.parse(mardownFile)} />
+    </article>
+  </section>
 </Layout>
 
 <style>
@@ -59,11 +65,41 @@ const mardownFile = compilePostsAsFormattedMarkdown(
     display: flex;
     gap: 8px;
   }
-  textarea {
+  .text-and-preview {
     width: 90vw;
-    height: 80vh;
+    min-height: 80vh;
     margin: 2rem auto;
-    display: block;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 1fr;
+
+    textarea {
+      display: block;
+    }
+    article {
+      padding: 1rem;
+
+      main {
+        blockquote {
+          border-left: 4px solid var(--color--primary-dark);
+          margin-left: 1rem;
+          padding-left: 1rem;
+        }
+        pre {
+          width: 100%;
+          overflow-x: auto;
+          padding: 1rem;
+          background-color: var(--color--black);
+        }
+      }
+    }
+  }
+
+  @media (width < 700px) {
+    .text-and-preview {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
   }
 </style>
 

@@ -25,7 +25,7 @@ const { max: maxPost = Number.MAX_SAFE_INTEGER } = Astro.props;
     gap: 8px;
   }
 
-  @media (width <= 700px) {
+  @media (width < 700px) {
     .news-container {
       padding: 16px 8px;
     }
