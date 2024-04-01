@@ -56,37 +56,12 @@ jobs:
           path: go-read-yourself-${{env.VERSION}}.tar.xz
           retention-days: 30
       - name: Create Release
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v')
-        id: create_release
-        uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.setup.outputs.VERSION }}
         with:
-          tag_name: v${{ env.VERSION }}
-          release_name: Release v${{ env.VERSION }}
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        if: startsWith(github.ref, 'refs/tags/v')
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ steps.setup.outputs.VERSION }}
-        with:
-           # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./go-read-yourself-${{env.VERSION}}.tar.xz
-          asset_name: go-read-yourself-${{env.VERSION}}.tar.xz
-          asset_content_type: application/x-xz
-      # - name: Publish release
-      #   if: startsWith(github.ref, 'refs/tags/v')
-      #   uses: ncipollo/release-action@v1
-      #   env:
-      #     VERSION: ${{ steps.setup.outputs.VERSION }}
-      #   with:
-      #     bodyFile: "go-read-yourself-${{env.VERSION}}.tar.xz"
+          files: go-read-yourself-${{env.VERSION}}.tar.xz
       - name: Docker meta
         if: startsWith(github.ref, 'refs/tags/v')
         id: meta
