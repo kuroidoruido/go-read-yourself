@@ -2,11 +2,26 @@
 import { refreshCw as refreshCwIcon } from "lucide-static/lib";
 import { TagFormField } from "./TagFormField.react";
 import { NewsService } from "../services/news.service";
+
+interface Props {
+  post?: NewsEntry;
+}
+
+const { post } = Astro.props;
 ---
 
 <form method="POST">
+  <input type="hidden" name="id" value={post?.id} />
+  <input type="hidden" name="creationDate" value={post?.creationDate} />
+  <input type="hidden" name="updateDates" value={post?.updateDates ?? ""} />
   <div class="field">
-    <input type="text" name="url" placeholder="Source" required />
+    <input
+      type="text"
+      name="url"
+      placeholder="Source"
+      required
+      value={post?.url}
+    />
     <div class="actions">
       <button
         type="button"
@@ -20,13 +35,25 @@ import { NewsService } from "../services/news.service";
     <select id="title-candidates" aria-label="Title candidates"></select>
   </div>
   <div class="field">
-    <input type="text" name="title" placeholder="Title" required />
+    <input
+      type="text"
+      name="title"
+      placeholder="Title"
+      required
+      value={post?.title}
+    />
   </div>
 
   <div class="field">
-    <textarea name="content" placeholder="Content" required></textarea>
+    <textarea name="content" placeholder="Content" required
+      >{post?.content ?? ""}</textarea
+    >
   </div>
-  <TagFormField knownTags={NewsService.getTags()} client:load />
+  <TagFormField
+    knownTags={NewsService.getTags()}
+    initialValue={post?.tags}
+    client:load
+  />
   <button class="btn">Publish</button>
   <br />
   <br />

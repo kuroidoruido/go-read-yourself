@@ -3,15 +3,19 @@ import { TagContainer } from "./TagContainer.react";
 import { Tag } from "./Tag.react";
 
 interface TagFormFieldProps {
+  initialValue?: string[];
   knownTags?: string[];
 }
 
-export function TagFormField({ knownTags = [] }: TagFormFieldProps = {}) {
+export function TagFormField({
+  knownTags = [],
+  initialValue = [],
+}: TagFormFieldProps = {}) {
   const {
     stateArray: selectedTags,
     pushToState,
     removeFromState,
-  } = useSetState<string>();
+  } = useSetState<string>(initialValue);
   const [inputValue, setInputValue] = useState("");
   const title = useElementValue({ selector: 'input[name="title"]' });
   const content = useElementValue({ selector: 'textarea[name="content"]' });

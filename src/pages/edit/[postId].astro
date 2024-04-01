@@ -1,15 +1,14 @@
 ---
 import { formatISO } from "date-fns";
-import ShortUniqueId from "short-unique-id";
-import Layout from "../layouts/Layout.astro";
-import NewPostForm from "../components/NewPostForm.astro";
-import { UserService } from "../services/user.service";
-import { NewsService } from "../services/news.service";
+import Layout from "../../layouts/Layout.astro";
+import NewPostForm from "../../components/NewPostForm.astro";
+import { UserService } from "../../services/user.service";
+import { NewsService } from "../../services/news.service";
 import {
   isDefined,
   isDefinedAndNotEmpty,
   isNotDefinedOrEmpty,
-} from "../utils/fp.util";
+} from "../../utils/fp.util";
 
 const isAdmin = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value
@@ -19,25 +18,36 @@ if (!isAdmin) {
   return Astro.redirect("/");
 }
 
+const { postId } = Astro.params;
+
+if (!postId) {
+  return Astro.redirect("/");
+}
+
 let message: string | undefined;
 
 if (Astro.request.method === "POST") {
   try {
     const data = await Astro.request.formData();
+    const id = data.get("id") as string;
     const url = data.get("url") as string;
     const title = data.get("title") as string;
     const content = data.get("content") as string;
     const tags = data.get("tags") as string;
-    const uid = new ShortUniqueId({ length: 10 });
-    if (isNotDefinedOrEmpty(url)) {
+    const creationDate = data.get("creationDate") as string;
+    const updateDates = data.get("updateDates") as string;
+    if (isNotDefinedOrEmpty(id)) {
+      Astro.response.status = 400;
+      message = "id is missing";
+    } else if (isNotDefinedOrEmpty(url)) {
       Astro.response.status = 400;
       message = "URL is missing";
     } else if (isNotDefinedOrEmpty(content)) {
       Astro.response.status = 400;
       message = "Content is missing";
     } else {
-      NewsService.addPost({
-        id: uid.rnd(),
+      NewsService.editPost({
+        id,
         url,
         content,
         title,
@@ -45,21 +55,28 @@ if (Astro.request.method === "POST") {
           .split(",")
           .map((t) => t.trim())
           .filter(isDefinedAndNotEmpty),
-        creationDate: formatISO(new Date()),
+        creationDate,
+        updateDates: [
+          ...(updateDates ?? "")
+            .split(",")
+            .map((date) => date.trim())
+            .filter(isDefinedAndNotEmpty),
+          formatISO(new Date()),
+        ],
       });
+      message = "Saved!";
     }
-    message = "Saved!";
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
     }
   }
 }
+
+const post = NewsService.getNewsPost(postId);
 ---
 
 <Layout noFAB>
   {isDefined(message) && message}
-  <NewPostForm />
+  <NewPostForm post={post} />
 </Layout>
-
-<style></style>

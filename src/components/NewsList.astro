@@ -1,10 +1,15 @@
 ---
 import NewsCard from "../components/NewsCard.astro";
 import { NewsService } from "../services/news.service";
+import { UserService } from "../services/user.service";
 
 interface Props {
   max?: number;
 }
+
+const isAdmin = UserService.isConnectedAsAdmin(
+  (name) => Astro.cookies.get(name)?.value
+);
 
 const { max: maxPost = Number.MAX_SAFE_INTEGER } = Astro.props;
 ---
@@ -13,7 +18,7 @@ const { max: maxPost = Number.MAX_SAFE_INTEGER } = Astro.props;
   {
     NewsService.getNews()
       .news.slice(0, maxPost)
-      .map((entry) => <NewsCard news={entry} />)
+      .map((entry) => <NewsCard news={entry} editable={isAdmin} />)
   }
 </div>
 

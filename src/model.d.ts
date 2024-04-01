@@ -28,6 +28,7 @@ interface NewsEntry {
   id: string;
   title: string;
   creationDate: string;
+  updateDates?: string[];
   url: string;
   tags: string[];
   content: string;
