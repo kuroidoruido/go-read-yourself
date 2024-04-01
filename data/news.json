@@ -1,6 +1,24 @@
 {
   "news": [
     {
+      "id": "skGyH1myJ4",
+      "url": "https://www.youtube.com/watch?v=ZMQbHMgK2rw",
+      "content": "The Fastest Maze-Solving Competition On Earth - YouTube",
+      "title": "The Fastest Maze-Solving Competition On Earth - YouTube",
+      "tags": [],
+      "creationDate": "2024-04-01T03:00:50+02:00"
+    },
+    {
+      "id": "Tdb84X7YZu",
+      "url": "https://www.youtube.com/shorts/DQuduANeHzY",
+      "content": "try",
+      "title": "UNLOCK your 2DS with this bypass trick!! - YouTube",
+      "tags": [
+        "Jeux-videos"
+      ],
+      "creationDate": "2024-04-01T02:24:51+02:00"
+    },
+    {
       "id": "q59w1Uliip",
       "url": "https://frontendmasters.com/blog/how-to-favicon-in-2024/",
       "content": "Je reporte :\r\n\r\n```\r\n<link rel=\"icon\" href=\"/favicon.ico\" sizes=\"32x32\">\r\n<link rel=\"icon\" href=\"/icon.svg\" type=\"image/svg+xml\">\r\n<link rel=\"apple-touch-icon\" href=\"/apple-touch-icon.png\"><!-- 180×180 -->\r\n<link rel=\"manifest\" href=\"/manifest.webmanifest\">\r\n\r\n// manifest.webmanifest\r\n{\r\n  \"icons\": [\r\n    { \"src\": \"/icon-192.png\", \"type\": \"image/png\", \"sizes\": \"192x192\" },\r\n    { \"src\": \"/icon-512.png\", \"type\": \"image/png\", \"sizes\": \"512x512\" }\r\n  ]\r\n}\r\n```",

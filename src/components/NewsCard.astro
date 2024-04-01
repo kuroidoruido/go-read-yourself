@@ -4,6 +4,7 @@ import { marked } from "marked";
 import { Tag } from "./Tag.react";
 import { TagContainer } from "./TagContainer.react";
 import { ConfigService } from "../services/config.service";
+import { tryGetYoutubeThumbnail } from "../utils/post.util";
 
 export interface Props {
   news: NewsEntry;
@@ -14,6 +15,11 @@ const formattedCreationDate = format(
   parseISO(news.creationDate),
   ConfigService.getConfig().card.dateFormat
 );
+
+const youtubeThumbnail = tryGetYoutubeThumbnail(news.url);
+const videoPreview = youtubeThumbnail
+  ? `[![${news.url}](${youtubeThumbnail} "Youtube video preview")](${news.url})\n\n`
+  : "";
 ---
 
 <div class="card" data-news-id={news.id} data-testid="news-card">
@@ -23,7 +29,10 @@ const formattedCreationDate = format(
   <TagContainer class={["card-tags"]}>
     {news.tags.map((tag) => <Tag>{tag}</Tag>)}
   </TagContainer>
-  <div class="card-content" set:html={marked.parse(news.content)} />
+  <div
+    class="card-content"
+    set:html={marked.parse(videoPreview + news.content)}
+  />
   <div class="card-date">{formattedCreationDate}</div>
 </div>
 
@@ -37,11 +46,23 @@ const formattedCreationDate = format(
     background-color: var(--card--background-color);
 
     .card-content {
+      blockquote {
+        margin: 8px 16px;
+        padding: 0 16px;
+        border-left: 4px solid var(--card--blockquote-border);
+      }
       pre {
-        width: 100%;
         overflow-x: auto;
         padding: 1rem;
         background-color: var(--color--black);
+      }
+      p:has(img[title="Youtube video preview"]:first-child:last-child),
+      p:has(iframe:first-child:last-child) {
+        display: flex;
+        justify-content: center;
+        img {
+          max-width: 40rem;
+        }
       }
     }
 
@@ -51,10 +72,30 @@ const formattedCreationDate = format(
   }
 </style>
 
-<style is:global>
-  .card[data-news-id] .card-content blockquote {
-    margin: 8px 16px;
-    padding: 0 16px;
-    border-left: 4px solid var(--card--blockquote-border);
+<script>
+  import { extractYoutubeVideoId } from "../utils/post.util";
+
+  const videoPreviews = document.querySelectorAll<HTMLImageElement>(
+    'img[title="Youtube video preview"]'
+  );
+  for (const videoPreview of videoPreviews) {
+    videoPreview.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const embed = document.createElement("iframe");
+      const videoId = extractYoutubeVideoId(videoPreview.alt);
+      Object.assign(embed, {
+        width: "560px",
+        height: "315px",
+        src: `https://youtube.com/embed/${videoId}`,
+        title: "YouTube video player",
+        frameborder: 0,
+        allow:
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share",
+        referrerpolicy: "strict-origin-when-cross-origin",
+        allowfullscreen: "true",
+      });
+      videoPreview.parentElement?.replaceWith(embed);
+    });
   }
-</style>
+</script>
