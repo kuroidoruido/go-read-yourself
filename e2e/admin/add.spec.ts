@@ -167,7 +167,7 @@ test("should be able to publish a post", async ({ page, context }) => {
   await homePo.navigateToHome();
 
   await expect(
-    page.getByRole("link", { name: YOUTUBE_URL_TITLE })
+    page.getByRole("link", { name: YOUTUBE_URL_TITLE, exact: true })
   ).toBeVisible();
   await expect(page.getByText(CONTENT_SAMPLE)).toBeVisible();
 });

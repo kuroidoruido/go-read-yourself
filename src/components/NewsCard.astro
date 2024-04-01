@@ -29,7 +29,11 @@ const videoPreview = youtubeThumbnail
     <a href={news.url}>{news.title}</a>
     {
       editable && (
-        <a class="btn" href={"/edit/" + news.id}>
+        <a
+          class="btn"
+          href={"/edit/" + news.id}
+          aria-label={"Edit " + news.title}
+        >
           <span set:html={fileEditIcon} class="icon" /> Edit
         </a>
       )
