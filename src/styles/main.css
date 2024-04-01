@@ -7,6 +7,13 @@
   --color--primary-dark: #59157c;
   --color--primary-darker: #260239;
   --color--primary-darkest: #0f0117;
+
+  --message--info-color: #1565c0;
+  --message--info-background-color: #bbdefb;
+  --message--success-color: #4caf50;
+  --message--success-background-color: #c8e6c9;
+  --message--error-color: #b71c1c;
+  --message--error-background-color: #ffcdd2;
 }
 
 @media (prefers-color-scheme: light) {

@@ -10,6 +10,7 @@ import {
   isDefinedAndNotEmpty,
   isNotDefinedOrEmpty,
 } from "../utils/fp.util";
+import Message, { type MessageType } from "../components/Message.astro";
 
 const isAdmin = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value
@@ -19,7 +20,9 @@ if (!isAdmin) {
   return Astro.redirect("/");
 }
 
-let message: string | undefined;
+let message:
+  | { type?: MessageType; title: string; message?: string }
+  | undefined;
 
 if (Astro.request.method === "POST") {
   try {
@@ -31,10 +34,18 @@ if (Astro.request.method === "POST") {
     const uid = new ShortUniqueId({ length: 10 });
     if (isNotDefinedOrEmpty(url)) {
       Astro.response.status = 400;
-      message = "URL is missing";
+      message = {
+        type: "error",
+        title: "Cannot save...",
+        message: "URL is missing",
+      };
     } else if (isNotDefinedOrEmpty(content)) {
       Astro.response.status = 400;
-      message = "Content is missing";
+      message = {
+        type: "error",
+        title: "Cannot save...",
+        message: "Content is missing",
+      };
     } else {
       NewsService.addPost({
         id: uid.rnd(),
@@ -48,7 +59,11 @@ if (Astro.request.method === "POST") {
         creationDate: formatISO(new Date()),
       });
     }
-    message = "Saved!";
+    message = {
+      type: "success",
+      title: "Save!",
+      message: "Post successfully updated",
+    };
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
@@ -58,7 +73,16 @@ if (Astro.request.method === "POST") {
 ---
 
 <Layout noFAB>
-  {isDefined(message) && message}
+  {
+    isDefined(message) && (
+      <Message
+        style="max-width: 600px;margin: 2rem auto"
+        type={message.type}
+        title={message.title}
+        message={message.message}
+      />
+    )
+  }
   <NewPostForm />
 </Layout>
 

@@ -1,0 +1,72 @@
+---
+import {
+  alertTriangle as alertTriangleIcon,
+  badgeCheck as badgeCheckIcon,
+  info as infoIcon,
+} from "lucide-static/lib";
+
+export type MessageType = "error" | "success" | "info";
+
+interface Props {
+  type?: MessageType;
+  title: string;
+  message?: string;
+  style?: string;
+}
+
+const { type = "info", title, message = "", style } = Astro.props;
+
+const icon = (() => {
+  switch (type) {
+    case "success":
+      return badgeCheckIcon;
+    case "error":
+      return alertTriangleIcon;
+    default:
+      return infoIcon;
+  }
+})();
+---
+
+<section class:list={["message", "message-" + type]} style={style}>
+  <div class="header">
+    <span set:html={icon} class="icon" />{title}
+  </div>
+  <div>{message}</div>
+</section>
+
+<style>
+  .message {
+    --message--main-color: var(--message--info-color);
+    --message--light-color: var(--message--info-background-color);
+
+    border: 1px solid var(--message--main-color);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--message--light-color);
+    color: var(--color--black);
+    padding: 1rem;
+    margin: 1rem;
+    gap: 1rem;
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .icon {
+        color: var(--message--main-color);
+      }
+    }
+
+    &.message-success {
+      --message--main-color: var(--message--success-color);
+      --message--light-color: var(--message--success-background-color);
+    }
+
+    &.message-error {
+      --message--main-color: var(--message--error-color);
+      --message--light-color: var(--message--error-background-color);
+    }
+  }
+</style>

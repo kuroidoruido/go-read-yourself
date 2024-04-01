@@ -9,6 +9,7 @@ import {
   isDefinedAndNotEmpty,
   isNotDefinedOrEmpty,
 } from "../../utils/fp.util";
+import Message, { MessageType } from "../../components/Message.astro";
 
 const isAdmin = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value
@@ -24,7 +25,9 @@ if (!postId) {
   return Astro.redirect("/");
 }
 
-let message: string | undefined;
+let message:
+  | { type?: MessageType; title: string; message?: string }
+  | undefined;
 
 if (Astro.request.method === "POST") {
   try {
@@ -38,13 +41,25 @@ if (Astro.request.method === "POST") {
     const updateDates = data.get("updateDates") as string;
     if (isNotDefinedOrEmpty(id)) {
       Astro.response.status = 400;
-      message = "id is missing";
+      message = {
+        type: "error",
+        title: "Cannot save...",
+        message: "id is missing",
+      };
     } else if (isNotDefinedOrEmpty(url)) {
       Astro.response.status = 400;
-      message = "URL is missing";
+      message = {
+        type: "error",
+        title: "Cannot save...",
+        message: "URL is missing",
+      };
     } else if (isNotDefinedOrEmpty(content)) {
       Astro.response.status = 400;
-      message = "Content is missing";
+      message = {
+        type: "error",
+        title: "Cannot save...",
+        message: "Content is missing",
+      };
     } else {
       NewsService.editPost({
         id,
@@ -64,7 +79,11 @@ if (Astro.request.method === "POST") {
           formatISO(new Date()),
         ],
       });
-      message = "Saved!";
+      message = {
+        type: "success",
+        title: "Save!",
+        message: "Post successfully updated",
+      };
     }
   } catch (error) {
     if (error instanceof Error) {
@@ -77,6 +96,15 @@ const post = NewsService.getNewsPost(postId);
 ---
 
 <Layout noFAB>
-  {isDefined(message) && message}
+  {
+    isDefined(message) && (
+      <Message
+        style="max-width: 600px;margin: 2rem auto"
+        type={message.type}
+        title={message.title}
+        message={message.message}
+      />
+    )
+  }
   <NewPostForm post={post} />
 </Layout>
