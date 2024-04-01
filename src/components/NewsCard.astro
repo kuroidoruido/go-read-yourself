@@ -22,6 +22,22 @@ const youtubeThumbnail = tryGetYoutubeThumbnail(news.url);
 const videoPreview = youtubeThumbnail
   ? `[![${news.url}](${youtubeThumbnail} "Youtube video preview")](${news.url})\n\n`
   : "";
+
+const imageUrl = [
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".svg",
+  ".gif",
+  ".webp",
+  ".tif",
+  ".bmp",
+].some((ext) => news.url.endsWith(ext))
+  ? news.url
+  : undefined;
+const imagePreview = imageUrl
+  ? `![${imageUrl}](${imageUrl} "Image preview")\n\n`
+  : "";
 ---
 
 <div class="card" data-news-id={news.id} data-testid="news-card">
@@ -44,7 +60,7 @@ const videoPreview = youtubeThumbnail
   </TagContainer>
   <div
     class="card-content"
-    set:html={marked.parse(videoPreview + news.content)}
+    set:html={marked.parse(videoPreview + imagePreview + news.content)}
   />
   <div class="card-date">{formattedCreationDate}</div>
 </div>
@@ -80,6 +96,7 @@ const videoPreview = youtubeThumbnail
         background-color: var(--color--black);
       }
       p:has(img[title="Youtube video preview"]:first-child:last-child),
+      p:has(img[title="Image preview"]:first-child:last-child),
       p:has(iframe:first-child:last-child) {
         display: flex;
         justify-content: center;
