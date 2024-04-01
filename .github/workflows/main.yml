@@ -9,11 +9,18 @@ jobs:
   main:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    permissions: write-all
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
+      - name: Setup variables
+        id: setup
+        run: |
+          cat package.json | grep "version" | sed 's/  "version": "\([^"]*\)",/\1/' >> .tmp-version
+          echo "VERSION=$(cat .tmp-version)" >> "$GITHUB_OUTPUT"
+          rm .tmp-version
       - name: Install dependencies
         run: npm ci
       - name: Unit Tests
@@ -22,13 +29,64 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: npm run e2e
-      - uses: actions/upload-artifact@v3
+      - name: Keep test report
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-
+      - name: Create release
+        if: always()
+        env:
+          VERSION: ${{ steps.setup.outputs.VERSION }}
+        run: |
+          rm -rf ./node_modules
+          npm ci --omit=dev
+          npm run build
+          mkdir go-read-yourself-${{env.VERSION}}
+          tar -cJf ./go-read-yourself-${{env.VERSION}}.tar.xz ./data ./dist ./node_modules
+      - name: Keep release archive
+        uses: actions/upload-artifact@v4
+        if: always()
+        env:
+          VERSION: ${{ steps.setup.outputs.VERSION }}
+        with:
+          name: go-read-yourself-${{env.VERSION}}
+          path: go-read-yourself-${{env.VERSION}}.tar.xz
+          retention-days: 30
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.setup.outputs.VERSION }}
+        with:
+          tag_name: v${{ env.VERSION }}
+          release_name: Release v${{ env.VERSION }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        if: startsWith(github.ref, 'refs/tags/v')
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.setup.outputs.VERSION }}
+        with:
+           # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./go-read-yourself-${{env.VERSION}}.tar.xz
+          asset_name: go-read-yourself-${{env.VERSION}}.tar.xz
+          asset_content_type: application/x-xz
+      # - name: Publish release
+      #   if: startsWith(github.ref, 'refs/tags/v')
+      #   uses: ncipollo/release-action@v1
+      #   env:
+      #     VERSION: ${{ steps.setup.outputs.VERSION }}
+      #   with:
+      #     bodyFile: "go-read-yourself-${{env.VERSION}}.tar.xz"
       - name: Docker meta
         if: startsWith(github.ref, 'refs/tags/v')
         id: meta
