@@ -49,16 +49,19 @@ Create a `users.json` in the data directory:
 
 ### ... with Docker
 
-Run the container with: 
+Run the container with:
 
 ```Bash
 docker run --name go-read-yourself -h go-read-yourself \
 	--restart=always \
 	--security-opt="no-new-privileges:true" \
+  -e TZ=America/Santiago \
 	-v /path/to/go-read-yourself/data:/app/data:rw \
 	-p 3000:3000 \
 	-d anthonypena/go-read-yourself:latest
 ```
+
+> Here I show you a custom timezone. By default the container will use the `Europe/Paris` timezone.
 
 ### ... with a precompiled version
 

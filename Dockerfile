@@ -16,6 +16,8 @@ COPY . .
 RUN npm run build
 
 FROM base AS runtime
+RUN apk add --no-cache tzdata
+ENV TZ=Europe/Paris
 COPY --from=prod-deps /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/data ./data
