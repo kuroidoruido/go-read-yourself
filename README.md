@@ -60,6 +60,18 @@ docker run --name go-read-yourself -h go-read-yourself \
 	-d anthonypena/go-read-yourself:latest
 ```
 
+### ... with a precompiled version
+
+Download package `go-read-yourself-vX.Y.Z.tar.xz` of the latest release from this page https://github.com/kuroidoruido/go-read-yourself/releases.
+
+```Bash
+tar xJf go-read-yourself-X.Y.Z.tar.xz --one-top-level
+cd go-read-yourself-X.Y.Z
+HOST=0.0.0.0 PORT=3000 node ./dist/server/entry.mjs
+```
+
+> Note: in this configuration, the data directory should be in the execution directory, so if you run it from the cloned directory, it will use the example data.
+
 ### ... by building it yourself
 
 ```Bash
