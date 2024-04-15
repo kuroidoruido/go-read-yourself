@@ -1,6 +1,19 @@
 {
   "news": [
     {
+      "id": "3sb8PBkize",
+      "url": "https://instances.social/api/doc/",
+      "content": "\r\n\r\nResource utile avec une API présentant la liste des instances Mastodon avec la possibilité de faire des filtres, de trier, etc.\r\n\r\nJe ne sais pas si c'est complètement à jour, mais c'est une API ouverte (faut juste demander une token), ça permet de naviguer dans les instances Mastodon connues.\r\n\r\nPerso j'avais besoin de récupérer la liste des instances Mastodon un minimum active, j'ai fait comme ça :\r\n\r\n```Bash\r\ncurl -H 'Authorization: Bearer token' \"https://instances.social/api/1.0/instances/list?include_down=false&include_dead=false&include_closed=false&min_users=5&min_active_users=5&min_version=3&sort_by=active_users&sort_order=desc&count=20\"\r\n```\r\n\r\n(là vous aurez le top 20, mais si vous voulez la liste complète, remplacez à la fin `count=20` par `count=0`)\r\n\r\nAu besoin, si vous voulez comme moi extraire que les noms des instances, on peut le faire en ajoutant `| jq '[.instances[].name]'` à la suite de la commande précédente",
+      "title": "Mastodon instances",
+      "tags": [
+        "API",
+        "Web",
+        "Mastodon",
+        "jq"
+      ],
+      "creationDate": "2024-04-15T15:05:25+02:00"
+    },
+    {
       "id": "vtpuYQyhAM",
       "url": "https://raw.githubusercontent.com/kuroidoruido/go-read-yourself/main/public/favicon.svg",
       "content": "Favicon svg sample with a simple emoji.",
