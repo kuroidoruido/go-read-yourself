@@ -46,7 +46,7 @@ const imagePreview = imageUrl
     {
       editable && (
         <a
-          class="btn"
+          class="btn secondary edit-post"
           href={"/edit/" + news.id}
           aria-label={"Edit " + news.title}
         >
@@ -81,6 +81,9 @@ const imagePreview = imageUrl
       a {
         display: flex;
         align-items: center;
+      }
+      a.btn.edit-post {
+        align-self: flex-start;
       }
     }
 
