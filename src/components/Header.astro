@@ -7,6 +7,7 @@ import {
   rss as rssIcon,
 } from "lucide-static/lib";
 import { UserService } from "../services/user.service";
+import { NewsService } from "../services/news.service";
 
 interface Props {
   title: string;
@@ -16,6 +17,8 @@ const { title } = Astro.props;
 const isConnected = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value
 );
+
+const postToCompileCount = NewsService.getPostsToCompile().length;
 ---
 
 <header>
@@ -34,6 +37,7 @@ const isConnected = UserService.isConnectedAsAdmin(
           <a href="/compile">
             <span set:html={newspaperIcon} class="icon" />
             <span class="text">Compile</span>
+            <span class="extra">({postToCompileCount})</span>
           </a>
           <a href="/info">
             <span set:html={infoIcon} class="icon" />
