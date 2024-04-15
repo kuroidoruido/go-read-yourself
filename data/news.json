@@ -1,6 +1,19 @@
 {
   "news": [
     {
+      "id": "nJdW66IhVv",
+      "url": "https://x.com/BenLesh/status/1775207971410039230?s=20",
+      "content": "This post has an image from external source:\r\n\r\n![Photo venant d'un talk de Tracy Lee qui a extrait une slide d'un talk de Ben Lesh](https://pbs.twimg.com/media/GKaLN-3W4AAbldW?format=jpg)",
+      "title": "Angular folks, Some Signals vs Observables info... -- @BenLesh",
+      "tags": [
+        "Angular",
+        "RxJS",
+        "Signals",
+        "Frontend"
+      ],
+      "creationDate": "2024-04-15T15:21:28+02:00"
+    },
+    {
       "id": "3sb8PBkize",
       "url": "https://instances.social/api/doc/",
       "content": "\r\n\r\nResource utile avec une API présentant la liste des instances Mastodon avec la possibilité de faire des filtres, de trier, etc.\r\n\r\nJe ne sais pas si c'est complètement à jour, mais c'est une API ouverte (faut juste demander une token), ça permet de naviguer dans les instances Mastodon connues.\r\n\r\nPerso j'avais besoin de récupérer la liste des instances Mastodon un minimum active, j'ai fait comme ça :\r\n\r\n```Bash\r\ncurl -H 'Authorization: Bearer token' \"https://instances.social/api/1.0/instances/list?include_down=false&include_dead=false&include_closed=false&min_users=5&min_active_users=5&min_version=3&sort_by=active_users&sort_order=desc&count=20\"\r\n```\r\n\r\n(là vous aurez le top 20, mais si vous voulez la liste complète, remplacez à la fin `count=20` par `count=0`)\r\n\r\nAu besoin, si vous voulez comme moi extraire que les noms des instances, on peut le faire en ajoutant `| jq '[.instances[].name]'` à la suite de la commande précédente",
