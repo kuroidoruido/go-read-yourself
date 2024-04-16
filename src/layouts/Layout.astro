@@ -1,4 +1,5 @@
 ---
+import MinimalLayout from "./MinimalLayout.astro";
 import AddFab from "../components/AddFab.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
@@ -14,30 +15,17 @@ const { noFAB = false } = Astro.props;
 const { title } = ConfigService.getConfig();
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
+<MinimalLayout>
+  <Fragment slot="head">
     <link
       rel="alternate"
       type="application/rss+xml"
       href="/feed.xml"
       title="RSS Feed"
     />
-    <title>{title}</title>
-  </head>
-  <body>
-    <Header title={title} />
-    <slot />
-    <Footer />
-    {!noFAB && <AddFab />}
-  </body>
-</html>
-<style>
-  body {
-    margin: 0;
-  }
-</style>
+  </Fragment>
+  <Header title={title} />
+  <slot />
+  <Footer />
+  {!noFAB && <AddFab />}
+</MinimalLayout>

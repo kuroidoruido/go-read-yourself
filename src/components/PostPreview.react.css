@@ -1,0 +1,14 @@
+section.post-preview {
+  width: 100%;
+  background-color: var(--card--background-color);
+  box-shadow: 1px 1px 15px var(--border-shadow);
+  padding: 4px;
+  box-sizing: border-box;
+  min-height: 5rem;
+
+  iframe {
+    width: 100%;
+    border: none;
+    min-height: 10rem;
+  }
+}

@@ -11,6 +11,7 @@ import {
   isNotDefinedOrEmpty,
 } from "../utils/fp.util";
 import Message, { type MessageType } from "../components/Message.astro";
+import { PostPreview } from "../components/PostPreview.react";
 
 const isAdmin = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value
@@ -83,7 +84,34 @@ if (Astro.request.method === "POST") {
       />
     )
   }
-  <NewPostForm />
+  <section role="tablist">
+    <input
+      name="tab--add-post"
+      type="radio"
+      value="edit"
+      id="tab--add-post--edit"
+      checked
+    />
+    <label for="tab--add-post--edit" role="tab">Edit</label>
+    <input
+      name="tab--add-post"
+      type="radio"
+      value="preview"
+      id="tab--add-post--preview"
+    />
+    <label for="tab--add-post--preview" role="tab">Preview</label>
+    <div role="tabpanel">
+      <NewPostForm />
+    </div>
+    <div role="tabpanel">
+      <PostPreview formSelector="form" client:only />
+    </div>
+  </section>
 </Layout>
 
-<style></style>
+<style>
+  section[role="tablist"] {
+    margin: 32px auto;
+    max-width: 600px;
+  }
+</style>

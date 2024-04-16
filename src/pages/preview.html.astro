@@ -1,0 +1,30 @@
+---
+import { formatISO } from "date-fns";
+import ShortUniqueId from "short-unique-id";
+import { isDefinedAndNotEmpty } from "../utils/fp.util";
+import NewsCard from "../components/NewsCard.astro";
+import MinimalLayout from "../layouts/MinimalLayout.astro";
+
+const data = new URL(Astro.request.url);
+const url = data.searchParams.get("url") as string;
+const title = data.searchParams.get("title") as string;
+const content = data.searchParams.get("content") as string;
+const tags = data.searchParams.get("tags") as string;
+const uid = new ShortUniqueId({ length: 10 });
+
+const post: NewsEntry = {
+  id: uid.rnd(),
+  url: url ?? "",
+  content: decodeURIComponent(atob(content ?? "")),
+  title: title ?? "",
+  tags: tags
+    .split(",")
+    .map((t) => t.trim())
+    .filter(isDefinedAndNotEmpty),
+  creationDate: formatISO(new Date()),
+};
+---
+
+<MinimalLayout>
+  <NewsCard news={post} />
+</MinimalLayout>
