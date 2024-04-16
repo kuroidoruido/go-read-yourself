@@ -90,20 +90,26 @@ const socialNetworkIcon = SocialNetworkService.getIcon(socialNetworkLink);
       display: flex;
       justify-content: space-between;
 
-      a {
+      a:not(.btn) {
+        svg[data-icon] {
+          display: inline-block;
+          height: 1.25em;
+          width: 1.25em;
+          margin-top: 0.25em;
+          margin-bottom: -0.25em;
+          margin-left: 0.5em;
+        }
+      }
+      a.btn.edit-post {
         display: flex;
         align-items: center;
-        flex-wrap: wrap;
         gap: 0 0.5rem;
-
+        align-self: flex-start;
         svg[data-icon] {
           height: 1.25em;
           width: 1.25em;
           margin-top: -0.125em;
         }
-      }
-      a.btn.edit-post {
-        align-self: flex-start;
       }
     }
 
