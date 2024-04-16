@@ -1,8 +1,5 @@
 ---
-import {
-  copy as copyIcon,
-  listChecks as listChecksIcon,
-} from "lucide-static/lib";
+import { Icon } from "astro-icon/components";
 import Layout from "../layouts/Layout.astro";
 import { NewsService } from "../services/news.service";
 import { UserService } from "../services/user.service";
@@ -39,7 +36,7 @@ const allLinksOk = linksStatus.every(({ status }) => status === "ok");
 <Layout noFAB>
   <div class="actions">
     <button class="btn" id="copy-btn">
-      <span set:html={copyIcon} />
+      <Icon name="lucide:copy" aria-hidden="true" />
       <span>Copy</span>
     </button>
     <a
@@ -48,7 +45,7 @@ const allLinksOk = linksStatus.every(({ status }) => status === "ok");
       id="mark-compiled-btn"
       href={`/compile?markAsCompiled=${postIdsToCompile.join(",")}`}
     >
-      <span set:html={listChecksIcon} />
+      <Icon name="lucide:list-checks" aria-hidden="true" />
       <span>Mark as compiled</span>
     </a>
     <div class:list={["links-status", allLinksOk ? "links-ok" : "links-ko"]}>
@@ -118,6 +115,10 @@ const allLinksOk = linksStatus.every(({ status }) => status === "ok");
         }
       }
     }
+  }
+  svg[data-icon] {
+    height: 1.5rem;
+    width: 1.5rem;
   }
 
   @media (width < 700px) {

@@ -1,7 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
 import { format, parseISO } from "date-fns";
-import { fileEdit as fileEditIcon } from "lucide-static/lib";
 import { marked } from "marked";
 import { Tag } from "./Tag.react";
 import { TagContainer } from "./TagContainer.react";
@@ -63,7 +62,7 @@ const socialNetworkIcon = SocialNetworkService.getIcon(socialNetworkLink);
           href={"/edit/" + news.id}
           aria-label={"Edit " + news.title}
         >
-          <span set:html={fileEditIcon} class="icon" /> Edit
+          <Icon name="lucide:file-edit" aria-hidden="true" /> Edit
         </a>
       )
     }

@@ -1,5 +1,5 @@
 ---
-import { filePlus as filePlusIcon } from "lucide-static/lib";
+import { Icon } from "astro-icon/components";
 import { UserService } from "../services/user.service";
 
 const isConnected = UserService.isConnectedAsAdmin(
@@ -10,7 +10,7 @@ const isConnected = UserService.isConnectedAsAdmin(
 {
   isConnected && (
     <a class="fab btn" href="/add">
-      <span set:html={filePlusIcon} />
+      <Icon name="lucide:file-plus" aria-hidden="true" />
       Add
     </a>
   )
@@ -25,5 +25,10 @@ const isConnected = UserService.isConnectedAsAdmin(
     position: fixed;
     bottom: 2rem;
     right: 2rem;
+
+    svg[data-icon] {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
   }
 </style>

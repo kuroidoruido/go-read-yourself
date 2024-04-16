@@ -1,5 +1,5 @@
 ---
-import { refreshCw as refreshCwIcon } from "lucide-static/lib";
+import { Icon } from "astro-icon/components";
 import { TagFormField } from "./TagFormField.react";
 import { NewsService } from "../services/news.service";
 
@@ -23,12 +23,9 @@ const { post } = Astro.props;
       value={post?.url}
     />
     <div class="actions">
-      <button
-        type="button"
-        title="Retry grab metadata"
-        id="retry-grab-metadata"
-        set:html={refreshCwIcon}
-      />
+      <button type="button" title="Retry grab metadata" id="retry-grab-metadata"
+        ><Icon name="lucide:refresh-cw" aria-hidden="true" /></button
+      >
     </div>
   </div>
   <div class="field">
@@ -68,6 +65,10 @@ const { post } = Astro.props;
     background-color: var(--card--background-color);
     box-shadow: 1px 1px 15px var(--border-shadow);
     padding: 32px;
+  }
+  svg[data-icon] {
+    height: 1.5rem;
+    width: 1.5rem;
   }
 </style>
 

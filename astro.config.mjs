@@ -17,6 +17,21 @@ export default defineConfig({
     react(),
     icon({
       include: {
+        lucide: [
+          "alert-triangle",
+          "badge-check",
+          "copy",
+          "file-edit",
+          "file-plus",
+          "file-search",
+          "home",
+          "info",
+          "list-checks",
+          "log-out",
+          "newspaper",
+          "refresh-cw",
+          "rss",
+        ],
         mdi: ["dev-to"],
         tabler: [
           "brand-bluesky",

@@ -1,9 +1,5 @@
 ---
-import {
-  alertTriangle as alertTriangleIcon,
-  badgeCheck as badgeCheckIcon,
-  info as infoIcon,
-} from "lucide-static/lib";
+import { Icon } from "astro-icon/components";
 
 export type MessageType = "error" | "success" | "info";
 
@@ -19,18 +15,18 @@ const { type = "info", title, message = "", style } = Astro.props;
 const icon = (() => {
   switch (type) {
     case "success":
-      return badgeCheckIcon;
+      return "lucide:badge-check";
     case "error":
-      return alertTriangleIcon;
+      return "lucide:alert-triangle";
     default:
-      return infoIcon;
+      return "lucide:info";
   }
 })();
 ---
 
 <section class:list={["message", "message-" + type]} style={style}>
   <div class="header">
-    <span set:html={icon} class="icon" />{title}
+    <Icon name={icon} aria-hidden="true" />{title}
   </div>
   <div>{message}</div>
 </section>
@@ -54,8 +50,10 @@ const icon = (() => {
       align-items: center;
       gap: 1rem;
 
-      .icon {
+      svg[data-icon] {
         color: var(--message--main-color);
+        height: 1.5rem;
+        width: 1.5rem;
       }
     }
 

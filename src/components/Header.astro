@@ -1,11 +1,5 @@
 ---
-import {
-  home as homeIcon,
-  info as infoIcon,
-  logOut as logOutIcon,
-  newspaper as newspaperIcon,
-  rss as rssIcon,
-} from "lucide-static/lib";
+import { Icon } from "astro-icon/components";
 import { UserService } from "../services/user.service";
 import { NewsService } from "../services/news.service";
 
@@ -22,29 +16,29 @@ const postToCompileCount = NewsService.getPostsToCompile().length;
 ---
 
 <header>
-  <a class="title" href="/"
-    ><span set:html={homeIcon} class="icon" /><span class="text">{title}</span
-    ></a
-  >
+  <a class="title" href="/">
+    <Icon name="lucide:home" aria-hidden="true" />
+    <span class="text">{title}</span>
+  </a>
   <div class="right-part">
     <a href="/feed.xml">
-      <span set:html={rssIcon} class="icon" />
+      <Icon name="lucide:rss" aria-hidden="true" />
       <span class="text">RSS</span>
     </a>
     {
       isConnected && (
         <>
           <a href="/compile">
-            <span set:html={newspaperIcon} class="icon" />
+            <Icon name="lucide:newspaper" aria-hidden="true" />
             <span class="text">Compile</span>
             <span class="extra">({postToCompileCount})</span>
           </a>
           <a href="/info">
-            <span set:html={infoIcon} class="icon" />
+            <Icon name="lucide:info" aria-hidden="true" />
             <span class="text">Info</span>
           </a>
           <a href="/signout">
-            <span set:html={logOutIcon} class="icon" />
+            <Icon name="lucide:log-out" aria-hidden="true" />
             <span class="text">Sign out</span>
           </a>
         </>
@@ -72,11 +66,16 @@ const postToCompileCount = NewsService.getPostsToCompile().length;
     display: flex;
     align-items: center;
     gap: 4px;
+
+    svg[data-icon] {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
   }
 
   @media (width < 700px) {
     header {
-      a.title span.icon {
+      a.title svg[data-icon] {
         display: unset;
       }
       a span.text {
