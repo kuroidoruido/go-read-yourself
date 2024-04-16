@@ -12,7 +12,12 @@ import { packages } from "../../../package-lock.json";
       <ul>
         {
           Object.keys(dependencies)
-            .filter((dep) => dep.startsWith("@astro"))
+            .filter(
+              (dep) =>
+                dep.startsWith("@astro") ||
+                dep.startsWith("astro") ||
+                dep.startsWith("react")
+            )
             .map((dep) => [
               dep,
               (packages as any)["node_modules/" + dep].version,
