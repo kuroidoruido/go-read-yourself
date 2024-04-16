@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import { format, parseISO } from "date-fns";
 import { fileEdit as fileEditIcon } from "lucide-static/lib";
 import { marked } from "marked";
@@ -6,6 +7,7 @@ import { Tag } from "./Tag.react";
 import { TagContainer } from "./TagContainer.react";
 import { ConfigService } from "../services/config.service";
 import { tryGetYoutubeThumbnail } from "../utils/post.util";
+import { SocialNetworkService } from "../services/social-network.service";
 
 export interface Props {
   news: NewsEntry;
@@ -38,11 +40,22 @@ const imageUrl = [
 const imagePreview = imageUrl
   ? `![${imageUrl}](${imageUrl} "Image preview")\n\n`
   : "";
+
+const socialNetworkLink = SocialNetworkService.getSocialNetworkFromUrl(
+  news.url
+);
+const socialNetworkIcon = SocialNetworkService.getIcon(socialNetworkLink);
 ---
 
 <div class="card" data-news-id={news.id} data-testid="news-card">
   <div class="card-title">
-    <a href={news.url}>{news.title}</a>
+    <a href={news.url}
+      >{news.title}{
+        socialNetworkIcon && (
+          <Icon name={socialNetworkIcon} aria-hidden="true" />
+        )
+      }</a
+    >
     {
       editable && (
         <a
@@ -81,6 +94,14 @@ const imagePreview = imageUrl
       a {
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
+        gap: 0 0.5rem;
+
+        svg[data-icon] {
+          height: 1.25em;
+          width: 1.25em;
+          margin-top: -0.125em;
+        }
       }
       a.btn.edit-post {
         align-self: flex-start;

@@ -10,27 +10,34 @@
     "test": "vitest",
     "astro": "astro",
     "e2e": "playwright test",
-    "e2e:ui": "playwright test --ui"
+    "e2e:ui": "playwright test --ui",
+    "update-mastodon-server-list": "dotenvx run -- npx tsx scripts/update-mastodon-server-list.ts"
   },
   "dependencies": {
     "@astrojs/node": "^7.0.3",
     "@astrojs/react": "^3.1.0",
     "@astrojs/rss": "^4.0.1",
+    "@iconify-json/mdi": "^1.1.66",
+    "@iconify-json/tabler": "^1.1.110",
     "@types/react": "^18.2.70",
     "@types/react-dom": "^18.2.22",
     "astro": "^4.0.8",
+    "astro-icon": "^1.1.0",
     "date-fns": "^2.30.0",
     "jsdom": "^23.0.1",
     "lucide-static": "^0.294.0",
     "marked": "^11.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "short-unique-id": "^5.0.3"
+    "short-unique-id": "^5.0.3",
+    "ts-pattern": "^5.1.1"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "^0.32.0",
     "@playwright/test": "^1.40.1",
     "@types/jsdom": "^21.1.6",
     "@types/node": "^20.10.3",
+    "tsx": "^4.7.2",
     "vitest": "^0.34.6"
   }
 }
