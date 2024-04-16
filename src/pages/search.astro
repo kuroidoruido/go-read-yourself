@@ -1,0 +1,76 @@
+---
+import { Icon } from "astro-icon/components";
+import Layout from "../layouts/Layout.astro";
+import NewsList from "../components/NewsList.astro";
+import { NewsService } from "../services/news.service";
+
+let query: string | null = null;
+let posts: NewsEntry[] = [];
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    query = data.get("query") as string | null;
+    const keywords = query?.toLocaleLowerCase()?.split(/\s+/);
+    posts = NewsService.getNews().news.filter(
+      (post) =>
+        post.tags.some((tag) => keywords?.includes(tag.toLocaleLowerCase())) ||
+        keywords?.some((keyword) =>
+          post.content.toLocaleLowerCase().includes(keyword)
+        )
+    );
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+---
+
+<Layout noFAB>
+  <h1>Search posts</h1>
+  <form method="post">
+    <div class="field">
+      <input
+        required
+        name="query"
+        placeholder="Content or tag"
+        title="Type text you want to search"
+        value={query}
+      />
+    </div>
+    <button type="submit" class="btn">
+      <Icon name="lucide:file-search" aria-hidden="true" />
+      Search
+    </button>
+  </form>
+  <NewsList posts={posts} />
+</Layout>
+
+<style>
+  h1 {
+    max-width: 600px;
+    margin: 32px auto;
+  }
+  form {
+    max-width: 600px;
+    margin: 32px auto;
+    background-color: var(--card--background-color);
+    box-shadow: 1px 1px 15px var(--border-shadow);
+    padding: 32px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    .field {
+      flex: 1;
+    }
+
+    button {
+      width: fit-content;
+    }
+  }
+  svg[data-icon] {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+</style>

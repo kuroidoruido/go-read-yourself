@@ -1,10 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import NewsList from "../components/NewsList.astro";
+import { NewsService } from "../services/news.service";
+
+const posts = NewsService.getNews().news.slice(0, 10);
 ---
 
 <Layout>
-  <NewsList max={10} />
+  <NewsList posts={posts} />
   <a class="load-more" href="/all">Load more</a>
 </Layout>
 
