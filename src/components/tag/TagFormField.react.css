@@ -1,0 +1,7 @@
+.suggested-list {
+  .tag {
+    &.kind-ai {
+      border: 1px solid goldenrod;
+    }
+  }
+}

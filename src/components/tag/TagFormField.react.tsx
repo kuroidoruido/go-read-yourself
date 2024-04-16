@@ -2,6 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import { TagContainer } from "./TagContainer.react";
 import { Tag } from "./Tag.react";
 
+import "./TagFormField.react.css";
+import { isNotDefinedOrEmpty } from "../../utils/fp.util";
+import { addSeconds } from "date-fns";
+import { sortAlphaAsc } from "../../utils/array.util";
+
 interface TagFormFieldProps {
   initialValue?: string[];
   knownTags?: string[];
@@ -19,22 +24,13 @@ export function TagFormField({
   const [inputValue, setInputValue] = useState("");
   const title = useElementValue({ selector: 'input[name="title"]' });
   const content = useElementValue({ selector: 'textarea[name="content"]' });
-
-  const basicSuggestions = useMemo(
-    () =>
-      knownTags.filter(
-        (tag) =>
-          title.toLocaleLowerCase().includes(tag.toLocaleLowerCase()) ||
-          content.toLocaleLowerCase().includes(tag.toLocaleLowerCase())
-      ),
-    [knownTags, title, content]
-  );
-  const filteredKnownTags = knownTags.filter((tag) =>
-    tag.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())
-  );
-  const suggestions = (
-    inputValue.length > 0 ? filteredKnownTags : basicSuggestions
-  ).filter((tag) => !selectedTags.includes(tag));
+  const { filteredKnownTags, suggestions } = useSuggestions({
+    title,
+    content,
+    knownTags,
+    inputValue,
+    selectedTags,
+  });
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);
@@ -52,7 +48,7 @@ export function TagFormField({
       onSelectOne(inputValue);
     }
     if (e.key === "Tab" && filteredKnownTags.length > 0) {
-      setInputValue(filteredKnownTags[0]!);
+      setInputValue(filteredKnownTags[0]?.name!);
     }
   }
   function onAddClick() {
@@ -85,8 +81,12 @@ export function TagFormField({
       <TagContainer class={["suggested-list"]} data-testid="suggested-list">
         Suggestion:
         {suggestions.map((tag) => (
-          <Tag key={tag} onClick={() => onSelectOne(tag)}>
-            {tag}
+          <Tag
+            key={`${tag.type}__${tag.name}`}
+            onClick={() => onSelectOne(tag.name)}
+            className={"kind-" + tag.type}
+          >
+            {tag.name}
           </Tag>
         ))}
       </TagContainer>
@@ -154,4 +154,138 @@ function useElementValue<
     return undefined;
   }, [selector]);
   return value;
+}
+
+interface TagSuggestion {
+  type: "basic" | "filtered" | "ai";
+  name: string;
+}
+
+interface UseSuggestionsProps {
+  title: string;
+  content: string;
+  knownTags: string[];
+  inputValue: string;
+  selectedTags: string[];
+}
+
+function useSuggestions({
+  title,
+  content,
+  knownTags,
+  inputValue,
+  selectedTags,
+}: UseSuggestionsProps) {
+  const { basicSuggestions } = useBasicSuggestions({
+    title,
+    content,
+    knownTags,
+  });
+  const { filteredKnownTags } = useFilteredKnownTags({ inputValue, knownTags });
+  const { aiSuggestions } = useAiSuggestions({ selectedTags, title, content });
+  const suggestions = (
+    inputValue.length > 0
+      ? filteredKnownTags
+      : [...basicSuggestions, ...aiSuggestions].sort(
+          sortAlphaAsc((x) => x.name)
+        )
+  ).filter((tag) => !selectedTags.includes(tag.name));
+
+  return {
+    suggestions: suggestions satisfies TagSuggestion[],
+    filteredKnownTags,
+  } as const;
+}
+
+interface UseBasicSuggestionsProps {
+  title: string;
+  content: string;
+  knownTags: string[];
+}
+
+function useBasicSuggestions({
+  knownTags,
+  title,
+  content,
+}: UseBasicSuggestionsProps) {
+  const basicSuggestions = useMemo(
+    () =>
+      knownTags
+        .filter(
+          (tag) =>
+            title.toLocaleLowerCase().includes(tag.toLocaleLowerCase()) ||
+            content.toLocaleLowerCase().includes(tag.toLocaleLowerCase())
+        )
+        .map((name): TagSuggestion => ({ name, type: "basic" })),
+    [knownTags, title, content]
+  );
+
+  return { basicSuggestions } as const;
+}
+
+interface UseFilteredKnownTagsProps {
+  knownTags: string[];
+  inputValue: string;
+}
+
+function useFilteredKnownTags({
+  knownTags,
+  inputValue,
+}: UseFilteredKnownTagsProps) {
+  const filteredKnownTags = knownTags
+    .filter((tag) =>
+      tag.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())
+    )
+    .map((name): TagSuggestion => ({ name, type: "filtered" }));
+  return { filteredKnownTags } as const;
+}
+
+interface UseAiSuggestionsProps {
+  title: string;
+  content: string;
+  selectedTags: string[];
+}
+
+function useAiSuggestions({
+  selectedTags,
+  title,
+  content,
+}: UseAiSuggestionsProps) {
+  const [aiSuggestions, setAiSuggestions] = useState<TagSuggestion[]>([]);
+  const [body, setBody] = useState("");
+  const now = new Date().getTime();
+  const [waitUntil, setWaitUntil] = useState(0);
+  useEffect(() => {
+    if (isNotDefinedOrEmpty(title) || isNotDefinedOrEmpty(content)) {
+      return;
+    }
+    const newBody = new URLSearchParams({
+      selectedTags: selectedTags.join(","),
+      title,
+      content: btoa(encodeURIComponent(content)),
+    }).toString();
+    if (newBody !== body) {
+      setBody(newBody);
+    }
+  }, [selectedTags, title, content]);
+
+  useEffect(() => {
+    if (isNotDefinedOrEmpty(body)) {
+      return;
+    }
+    if (now < waitUntil) {
+      return;
+    }
+    setWaitUntil(addSeconds(new Date(now), 30).getTime());
+    fetch("/grab-extra-tags-recommandation", {
+      method: "POST",
+      headers: { "Content-type": "application/x-www-form-urlencoded" },
+      body,
+    })
+      .then((res): Promise<{ tags: string[] }> => res.json())
+      .then((res) => {
+        setAiSuggestions(res.tags.map((name) => ({ name, type: "ai" })));
+      });
+  }, [body, now, waitUntil]);
+  return { aiSuggestions } as const;
 }

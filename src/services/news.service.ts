@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from "node:fs";
-import { dedup } from "../utils/array.util";
+import { dedup, sortAlphaAsc } from "../utils/array.util";
 
 const NEWS_PATH = "./data/news.json";
 
@@ -18,9 +18,7 @@ class NewsServiceImpl {
 
   getTags() {
     const tags = dedup(this.getNews().news.flatMap((n) => n.tags));
-    tags.sort((a, b) =>
-      a.toLocaleLowerCase().localeCompare(b.toLocaleLowerCase())
-    );
+    tags.sort(sortAlphaAsc());
     return tags;
   }
 
