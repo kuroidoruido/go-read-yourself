@@ -18,7 +18,11 @@ export const GET: APIRoute = async ({ request }) => {
 async function extractTitles(url: string): Promise<string[]> {
   const titles: (string | undefined | null)[] = [];
 
-  const page = await fetch(url).then((res) => res.text());
+  const page = await fetch(url, {
+    headers: {
+      "User-Agent": "User-Agent: curl/8.7.1",
+    },
+  }).then((res) => res.text());
   const dom = new JSDOM(page);
   const pageTitle = dom.window.document.querySelector("title")?.textContent;
   titles.push(pageTitle);
@@ -28,6 +32,21 @@ async function extractTitles(url: string): Promise<string[]> {
   dom.window.document.querySelectorAll("h2").forEach((h2) => {
     titles.push(h2.textContent);
   });
+  dom.window.document
+    .querySelectorAll('meta[property="og:title"]')
+    .forEach((meta) => {
+      titles.push((meta as HTMLMetaElement).content);
+    });
+  dom.window.document
+    .querySelectorAll('meta[property="twitter:creator"]')
+    .forEach((meta) => {
+      titles.push((meta as HTMLMetaElement).content);
+    });
+  dom.window.document
+    .querySelectorAll('meta[property="og:description"]')
+    .forEach((meta) => {
+      titles.push((meta as HTMLMetaElement).content);
+    });
 
   return dedup(titles.filter(isDefined).map((t) => t?.trim()));
 }

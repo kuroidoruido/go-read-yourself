@@ -95,6 +95,12 @@ const { post } = Astro.props;
       if (url?.includes("youtu.be")) {
         urlField!.value = url.split("?")[0] ?? "";
       }
+      if (url?.includes("x.com") && !url?.includes("fixupx.com")) {
+        urlField!.value = url.replace("x.com", "fixupx.com") ?? "";
+      }
+      if (url?.includes("twitter.com") && !url?.includes("fxtwitter.com")) {
+        urlField!.value = url.replace("twitter.com", "fxtwitter.com") ?? "";
+      }
       return next();
     };
   }

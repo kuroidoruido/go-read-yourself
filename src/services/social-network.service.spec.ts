@@ -43,7 +43,14 @@ describe(SocialNetworkService.getSocialNetworkFromUrl.name, () => {
     ...socialNetworkCaseGenerator("Medium", "medium.com"),
     ...socialNetworkCaseGenerator("Reddit", "reddit.com", "redd.it"),
     ...socialNetworkCaseGenerator("Threads", "threads.net"),
-    ...socialNetworkCaseGenerator("Twitter/X", "x.com", "t.co", "twitter.com"),
+    ...socialNetworkCaseGenerator(
+      "Twitter/X",
+      "x.com",
+      "t.co",
+      "twitter.com",
+      "fxtwitter.com",
+      "fixupx.com"
+    ),
     ...socialNetworkCaseGenerator(
       "Youtube",
       "yt.be",

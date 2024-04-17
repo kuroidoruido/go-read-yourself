@@ -41,7 +41,15 @@ class SocialNetworkServiceImpl {
       .when(...whenDomain("Medium", ["medium.com"]))
       .when(...whenDomain("Reddit", ["reddit.com", "redd.it"]))
       .when(...whenDomain("Threads", ["threads.net"]))
-      .when(...whenDomain("Twitter/X", ["t.co", "twitter.com", "x.com"]))
+      .when(
+        ...whenDomain("Twitter/X", [
+          "t.co",
+          "twitter.com",
+          "x.com",
+          "fxtwitter.com",
+          "fixupx.com",
+        ])
+      )
       .when(...whenDomain("Youtube", ["yt.be", "youtu.be", "youtube.com"]))
       .when(...whenDomain("Mastodon", MASTODON_SERVERS))
       .otherwise((): SocialNetwork => "UNKNOWN");
