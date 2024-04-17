@@ -116,6 +116,21 @@ const socialNetworkIcon = SocialNetworkService.getIcon(socialNetworkLink);
           max-width: min(100%, 40rem);
         }
       }
+      p a:has(img[title="Youtube video preview"]) {
+        position: relative;
+        &::after {
+          content: "";
+          background-image: url("/lucide--circle-play.svg");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 100%;
+          position: absolute;
+          top: calc(50% - (3rem));
+          left: calc(50% - (3rem));
+          width: 6rem;
+          height: 6rem;
+        }
+      }
     }
 
     .card-date {
