@@ -1,5 +1,8 @@
 .suggested-list {
   .tag {
+    &.kind-association {
+      border: 1px solid greenyellow;
+    }
     &.kind-ai {
       border: 1px solid goldenrod;
     }

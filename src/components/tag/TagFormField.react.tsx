@@ -3,18 +3,20 @@ import { TagContainer } from "./TagContainer.react";
 import { Tag } from "./Tag.react";
 
 import "./TagFormField.react.css";
-import { isNotDefinedOrEmpty } from "../../utils/fp.util";
+import { isDefinedAndNotEmpty, isNotDefinedOrEmpty } from "../../utils/fp.util";
 import { addSeconds } from "date-fns";
-import { sortAlphaAsc } from "../../utils/array.util";
+import { dedup, sortAlphaAsc } from "../../utils/array.util";
 
 interface TagFormFieldProps {
   initialValue?: string[];
   knownTags?: string[];
+  tagsAssociations?: Record<string, string[]>;
 }
 
 export function TagFormField({
   knownTags = [],
   initialValue = [],
+  tagsAssociations = {},
 }: TagFormFieldProps = {}) {
   const {
     stateArray: selectedTags,
@@ -30,6 +32,7 @@ export function TagFormField({
     knownTags,
     inputValue,
     selectedTags,
+    tagsAssociations,
   });
 
   function handleOnChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -157,7 +160,7 @@ function useElementValue<
 }
 
 interface TagSuggestion {
-  type: "basic" | "filtered" | "ai";
+  type: "filtered" | "basic" | "association" | "ai";
   name: string;
 }
 
@@ -167,6 +170,7 @@ interface UseSuggestionsProps {
   knownTags: string[];
   inputValue: string;
   selectedTags: string[];
+  tagsAssociations: Record<string, string[]>;
 }
 
 function useSuggestions({
@@ -175,18 +179,23 @@ function useSuggestions({
   knownTags,
   inputValue,
   selectedTags,
+  tagsAssociations,
 }: UseSuggestionsProps) {
+  const { filteredKnownTags } = useFilteredKnownTags({ inputValue, knownTags });
   const { basicSuggestions } = useBasicSuggestions({
     title,
     content,
     knownTags,
   });
-  const { filteredKnownTags } = useFilteredKnownTags({ inputValue, knownTags });
+  const { associationSuggestions } = useAssociationSuggestions({
+    tagsAssociations,
+    selectedTags,
+  });
   const { aiSuggestions } = useAiSuggestions({ selectedTags, title, content });
   const suggestions = (
     inputValue.length > 0
       ? filteredKnownTags
-      : [...basicSuggestions, ...aiSuggestions].sort(
+      : [...basicSuggestions, ...associationSuggestions, ...aiSuggestions].sort(
           sortAlphaAsc((x) => x.name)
         )
   ).filter((tag) => !selectedTags.includes(tag.name));
@@ -195,6 +204,23 @@ function useSuggestions({
     suggestions: suggestions satisfies TagSuggestion[],
     filteredKnownTags,
   } as const;
+}
+
+interface UseFilteredKnownTagsProps {
+  knownTags: string[];
+  inputValue: string;
+}
+
+function useFilteredKnownTags({
+  knownTags,
+  inputValue,
+}: UseFilteredKnownTagsProps) {
+  const filteredKnownTags = knownTags
+    .filter((tag) =>
+      tag.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())
+    )
+    .map((name): TagSuggestion => ({ name, type: "filtered" }));
+  return { filteredKnownTags } as const;
 }
 
 interface UseBasicSuggestionsProps {
@@ -223,21 +249,23 @@ function useBasicSuggestions({
   return { basicSuggestions } as const;
 }
 
-interface UseFilteredKnownTagsProps {
-  knownTags: string[];
-  inputValue: string;
+interface UseAssociationSuggestionsProps {
+  selectedTags: string[];
+  tagsAssociations: Record<string, string[]>;
 }
 
-function useFilteredKnownTags({
-  knownTags,
-  inputValue,
-}: UseFilteredKnownTagsProps) {
-  const filteredKnownTags = knownTags
-    .filter((tag) =>
-      tag.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase())
-    )
-    .map((name): TagSuggestion => ({ name, type: "filtered" }));
-  return { filteredKnownTags } as const;
+function useAssociationSuggestions({
+  selectedTags,
+  tagsAssociations,
+}: UseAssociationSuggestionsProps) {
+  return {
+    associationSuggestions: dedup(
+      selectedTags
+        .flatMap((t) => tagsAssociations[t])
+        .filter(isDefinedAndNotEmpty)
+        .filter((tag) => !selectedTags.includes(tag))
+    ).map((name): TagSuggestion => ({ name, type: "association" })),
+  } as const;
 }
 
 interface UseAiSuggestionsProps {

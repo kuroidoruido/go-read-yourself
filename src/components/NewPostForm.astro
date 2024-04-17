@@ -48,6 +48,7 @@ const { post } = Astro.props;
   </div>
   <TagFormField
     knownTags={TagsService.getTags()}
+    tagsAssociations={TagsService.getTagsAssociations()}
     initialValue={post?.tags}
     client:load
   />

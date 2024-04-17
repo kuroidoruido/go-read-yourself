@@ -3,9 +3,9 @@ import { NewsService } from "./news.service";
 
 class TagsServiceImpl {
   getTags() {
-    const tags = dedup(NewsService.getNews().news.flatMap((n) => n.tags));
-    tags.sort(sortAlphaAsc());
-    return tags;
+    return dedup(NewsService.getNews().news.flatMap((n) => n.tags)).toSorted(
+      sortAlphaAsc()
+    );
   }
 }
 

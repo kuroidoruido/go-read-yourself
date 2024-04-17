@@ -30,6 +30,6 @@ export function isNotDefinedOrEmpty<T extends { length: number }>(
 
 export function isDefinedAndNotEmpty<T extends { length: number }>(
   x: T | undefined | null
-) {
+): x is T {
   return isDefined(x) && isNotEmpty(x);
 }

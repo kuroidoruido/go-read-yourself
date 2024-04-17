@@ -10,7 +10,7 @@ export function compilePostsAsFormattedMarkdown(
   posts: NewsEntry[],
   { byTags = [], defaultGroupName = "" }: Options = {}
 ) {
-  const postsSortedByCreationDate = posts.sort(compareCreationDate);
+  const postsSortedByCreationDate = posts.toSorted(compareCreationDate);
   const postsGroupedByTags = postsSortedByCreationDate
     .map((post): [string, NewsEntry] => [
       byTags.find((tag) => post.tags.includes(tag)) ?? defaultGroupName,
