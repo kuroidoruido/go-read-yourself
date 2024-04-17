@@ -1,5 +1,5 @@
 import { isDefined } from "./fp.util";
-import { tryGetUrlPreview, tryGetYoutubeThumbnail } from "./post.util";
+import { tryGetUrlPreview } from "./post.util";
 
 interface Options {
   byTags?: string[];

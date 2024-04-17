@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import { TagFormField } from "./tag/TagFormField.react";
-import { NewsService } from "../services/news.service";
+import { TagsService } from "../services/tags.service";
 
 interface Props {
   post?: NewsEntry;
@@ -47,7 +47,7 @@ const { post } = Astro.props;
     >
   </div>
   <TagFormField
-    knownTags={NewsService.getTags()}
+    knownTags={TagsService.getTags()}
     initialValue={post?.tags}
     client:load
   />

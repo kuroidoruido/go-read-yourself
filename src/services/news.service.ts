@@ -1,5 +1,4 @@
 import { readFileSync, writeFileSync } from "node:fs";
-import { dedup, sortAlphaAsc } from "../utils/array.util";
 
 const NEWS_PATH = "./data/news.json";
 
@@ -14,12 +13,6 @@ class NewsServiceImpl {
 
   private writeNews(news: NewsPosts) {
     writeFileSync(NEWS_PATH, JSON.stringify(news, undefined, 2));
-  }
-
-  getTags() {
-    const tags = dedup(this.getNews().news.flatMap((n) => n.tags));
-    tags.sort(sortAlphaAsc());
-    return tags;
   }
 
   addPost(newsEntry: NewsEntry) {

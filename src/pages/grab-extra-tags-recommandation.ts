@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { isDefinedAndNotEmpty, isNotDefinedOrEmpty } from "../utils/fp.util";
-import { NewsService } from "../services/news.service";
 import { capitalizeFirst } from "../utils/string.util";
+import { TagsService } from "../services/tags.service";
 
 export const POST: APIRoute = async ({ request }) => {
   if (isNotDefinedOrEmpty(process.env.OPENAI_TOKEN)) {
@@ -28,7 +28,7 @@ async function extractFormData(request: Request) {
     content: decodeURIComponent(
       atob(formData.get("content")?.toString() ?? "")
     ),
-    knownTags: NewsService.getTags(),
+    knownTags: TagsService.getTags(),
   } as const;
 }
 
