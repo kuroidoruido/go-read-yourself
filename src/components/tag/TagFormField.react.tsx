@@ -3,14 +3,15 @@ import { TagContainer } from "./TagContainer.react";
 import { Tag } from "./Tag.react";
 
 import "./TagFormField.react.css";
-import { isDefinedAndNotEmpty, isNotDefinedOrEmpty } from "../../utils/fp.util";
+import { isDefined, isNotDefinedOrEmpty } from "../../utils/fp.util";
 import { addSeconds } from "date-fns";
-import { dedup, sortAlphaAsc } from "../../utils/array.util";
+import { sortAlphaAsc } from "../../utils/array.util";
+import type { TagsAssociation } from "../../services/tags.service";
 
 interface TagFormFieldProps {
   initialValue?: string[];
   knownTags?: string[];
-  tagsAssociations?: Record<string, string[]>;
+  tagsAssociations?: TagsAssociation;
 }
 
 export function TagFormField({
@@ -88,6 +89,7 @@ export function TagFormField({
             key={`${tag.type}__${tag.name}`}
             onClick={() => onSelectOne(tag.name)}
             className={"kind-" + tag.type}
+            title={tag.hint}
           >
             {tag.name}
           </Tag>
@@ -162,6 +164,7 @@ function useElementValue<
 interface TagSuggestion {
   type: "filtered" | "basic" | "association" | "ai";
   name: string;
+  hint?: string;
 }
 
 interface UseSuggestionsProps {
@@ -170,7 +173,7 @@ interface UseSuggestionsProps {
   knownTags: string[];
   inputValue: string;
   selectedTags: string[];
-  tagsAssociations: Record<string, string[]>;
+  tagsAssociations: TagsAssociation;
 }
 
 function useSuggestions({
@@ -195,9 +198,11 @@ function useSuggestions({
   const suggestions = (
     inputValue.length > 0
       ? filteredKnownTags
-      : [...basicSuggestions, ...associationSuggestions, ...aiSuggestions].sort(
-          sortAlphaAsc((x) => x.name)
-        )
+      : [
+          ...basicSuggestions,
+          ...associationSuggestions,
+          ...aiSuggestions,
+        ].toSorted(sortAlphaAsc((x) => x.name))
   ).filter((tag) => !selectedTags.includes(tag.name));
 
   return {
@@ -251,7 +256,7 @@ function useBasicSuggestions({
 
 interface UseAssociationSuggestionsProps {
   selectedTags: string[];
-  tagsAssociations: Record<string, string[]>;
+  tagsAssociations: TagsAssociation;
 }
 
 function useAssociationSuggestions({
@@ -259,13 +264,35 @@ function useAssociationSuggestions({
   tagsAssociations,
 }: UseAssociationSuggestionsProps) {
   return {
-    associationSuggestions: dedup(
-      selectedTags
-        .flatMap((t) => tagsAssociations[t])
-        .filter(isDefinedAndNotEmpty)
-        .filter((tag) => !selectedTags.includes(tag))
-    ).map((name): TagSuggestion => ({ name, type: "association" })),
+    associationSuggestions: selectedTags
+      .flatMap((t) => tagsAssociations[t])
+      .filter(isDefined)
+      .filter((tag) => !selectedTags.includes(tag.name))
+      .toSorted(sortByScoreDesc())
+      .filter(filterDedup((a, b) => a.name === b.name))
+      .slice(0, 10)
+      .map(
+        ({ name, score }): TagSuggestion => ({
+          name,
+          hint: `score: ${score}`,
+          type: "association",
+        })
+      ),
   } as const;
+}
+
+function filterDedup<T>(isEqual: (a: T, b: T) => boolean = (a, b) => a === b) {
+  return (x: T, _index: number, all: T[]) => {
+    const sameElementFound = all.filter((t) => isEqual(x, t));
+    if (sameElementFound.length === 1) {
+      return true;
+    }
+    console.log({ sameElementFound });
+    return sameElementFound[0] === x;
+  };
+}
+function sortByScoreDesc<T extends { score: number }>() {
+  return ({ score: a }: T, { score: b }: T) => b - a;
 }
 
 interface UseAiSuggestionsProps {
