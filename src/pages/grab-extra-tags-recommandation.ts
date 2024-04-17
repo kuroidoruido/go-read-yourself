@@ -4,13 +4,13 @@ import { NewsService } from "../services/news.service";
 import { capitalizeFirst } from "../utils/string.util";
 
 export const POST: APIRoute = async ({ request }) => {
-  if (isNotDefinedOrEmpty(import.meta.env.OPENAI_TOKEN)) {
+  if (isNotDefinedOrEmpty(process.env.OPENAI_TOKEN)) {
     return new Response(JSON.stringify({ tags: [] }), { status: 200 });
   }
 
   const data = await extractFormData(request);
   try {
-    const tags = await askOpenAi(data, import.meta.env.OPENAI_TOKEN);
+    const tags = await askOpenAi(data, process.env.OPENAI_TOKEN);
     return new Response(JSON.stringify({ tags }), { status: 200 });
   } catch {
     return new Response(JSON.stringify({}), { status: 500 });
