@@ -1,4 +1,4 @@
-FROM node:lts-alpine AS base
+FROM node:20-alpine AS base
 WORKDIR /app
 
 # By copying only the package.json and package-lock.json here, we ensure that the following `-deps` steps are independent of the source code.
