@@ -103,7 +103,7 @@ const allLinksOk = linksStatus.every(({ status }) => status === "ok");
           padding: 1rem;
           background-color: var(--color--black);
         }
-        a.link-ok {
+        a.link-ok:not(:has(img)) {
           &&::before {
             content: "✅ ";
           }

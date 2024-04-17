@@ -5,7 +5,7 @@ import { marked } from "marked";
 import { Tag } from "./tag/Tag.react";
 import { TagContainer } from "./tag/TagContainer.react";
 import { ConfigService } from "../services/config.service";
-import { tryGetYoutubeThumbnail } from "../utils/post.util";
+import { tryGetUrlPreview } from "../utils/post.util";
 import { SocialNetworkService } from "../services/social-network.service";
 
 export interface Props {
@@ -19,26 +19,7 @@ const formattedCreationDate = format(
   ConfigService.getConfig().card.dateFormat
 );
 
-const youtubeThumbnail = tryGetYoutubeThumbnail(news.url);
-const videoPreview = youtubeThumbnail
-  ? `[![${news.url}](${youtubeThumbnail} "Youtube video preview")](${news.url})\n\n`
-  : "";
-
-const imageUrl = [
-  ".jpg",
-  ".jpeg",
-  ".png",
-  ".svg",
-  ".gif",
-  ".webp",
-  ".tif",
-  ".bmp",
-].some((ext) => news.url.endsWith(ext))
-  ? news.url
-  : undefined;
-const imagePreview = imageUrl
-  ? `![${imageUrl}](${imageUrl} "Image preview")\n\n`
-  : "";
+const previews = tryGetUrlPreview(news.url);
 
 const socialNetworkLink = SocialNetworkService.getSocialNetworkFromUrl(
   news.url
@@ -70,10 +51,7 @@ const socialNetworkIcon = SocialNetworkService.getIcon(socialNetworkLink);
   <TagContainer class={["card-tags"]}>
     {news.tags.map((tag) => <Tag>{tag}</Tag>)}
   </TagContainer>
-  <div
-    class="card-content"
-    set:html={marked.parse(videoPreview + imagePreview + news.content)}
-  />
+  <div class="card-content" set:html={marked.parse(previews + news.content)} />
   <div class="card-date">{formattedCreationDate}</div>
 </div>
 

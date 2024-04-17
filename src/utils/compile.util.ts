@@ -1,4 +1,5 @@
 import { isDefined } from "./fp.util";
+import { tryGetUrlPreview, tryGetYoutubeThumbnail } from "./post.util";
 
 interface Options {
   byTags?: string[];
@@ -42,10 +43,12 @@ function formatAll(posts: NewsEntry[]) {
 }
 
 function formatOneNews(news: NewsEntry) {
+  const previews = tryGetUrlPreview(news.url);
+
   return `### [${news.title}](${encodeURI(news.url)})
 \\${news.tags.map((tag) => "#" + tag.replaceAll(" ", "-")).join(" ")}
 
-${news.content.replaceAll("\r\n", "\n")}
+${previews}${news.content.replaceAll("\r\n", "\n")}
 `;
 }
 

@@ -37,3 +37,41 @@ export function tryGetYoutubeThumbnail(
   }
   return getThumbnailLink(extractYoutubeVideoId(url));
 }
+
+function buildYoutubeVideoPreviewMd(
+  url: string,
+  youtubeThumbnail: string | null | undefined
+) {
+  return youtubeThumbnail
+    ? `[![${url}](${youtubeThumbnail} "Youtube video preview")](${url})\n\n`
+    : "";
+}
+
+function tryGetImagePreviewThumbnail(url: string) {
+  return [
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".svg",
+    ".gif",
+    ".webp",
+    ".tif",
+    ".bmp",
+  ].some((ext) => url.endsWith(ext))
+    ? url
+    : undefined;
+}
+
+function buildImagePreviewMd(imageUrl: string | null | undefined) {
+  return imageUrl ? `![${imageUrl}](${imageUrl} "Image preview")\n\n` : "";
+}
+
+export function tryGetUrlPreview(url: string) {
+  const videoPreview = buildYoutubeVideoPreviewMd(
+    url,
+    tryGetYoutubeThumbnail(url)
+  );
+  const imagePreview = buildImagePreviewMd(tryGetImagePreviewThumbnail(url));
+
+  return videoPreview + imagePreview;
+}
