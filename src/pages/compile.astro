@@ -6,6 +6,7 @@ import { UserService } from "../services/user.service";
 import { compilePostsAsFormattedMarkdown } from "../utils/compile.util";
 import { ConfigService } from "../services/config.service";
 import { checkLinks, renderPreview } from "../utils/preview.util";
+import { RainbowColor } from "../utils/rainbow.util";
 
 const isAdmin = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value
@@ -25,10 +26,12 @@ if (Astro.url.searchParams.has("markAsCompiled")) {
 
 const postsToCompile = NewsService.getPostsToCompile();
 const postIdsToCompile = postsToCompile.map((post) => post.id);
-const mardownFile = compilePostsAsFormattedMarkdown(
+const { markdownFile, summary } = compilePostsAsFormattedMarkdown(
   postsToCompile,
   ConfigService.getConfig().compile
 );
+const postCount = postsToCompile.length;
+const summaryColors = RainbowColor.generate(summary.length);
 const linksStatus = await checkLinks(postsToCompile.map((post) => post.url));
 const allLinksOk = linksStatus.every(({ status }) => status === "ok");
 ---
@@ -53,9 +56,26 @@ const allLinksOk = linksStatus.every(({ status }) => status === "ok");
     </div>
   </div>
   <section class="text-and-preview">
-    <textarea set:html={mardownFile} id="compiled-textarea" />
+    <textarea set:html={markdownFile} id="compiled-textarea" />
     <article class="preview">
-      <main set:html={renderPreview(mardownFile, linksStatus)} />
+      <section class="summary" inert>
+        {
+          summary.map(({ tag, count }, index) => (
+            <div
+              title={`${tag} (${count})`}
+              style={{
+                backgroundColor: summaryColors[index]?.toHex(),
+                width: Math.max(1, Math.ceil((count / postCount) * 100)) + "%",
+              }}
+            >
+              <p>
+                {tag} ({count})
+              </p>
+            </div>
+          ))
+        }
+      </section>
+      <main set:html={renderPreview(markdownFile, linksStatus)} />
     </article>
   </section>
 </Layout>
@@ -77,6 +97,25 @@ const allLinksOk = linksStatus.every(({ status }) => status === "ok");
       }
     }
   }
+
+  .summary {
+    border: 1px solid var(--color--primary-darkest);
+    display: flex;
+    flex-wrap: nowrap;
+    & > div {
+      white-space: nowrap;
+      overflow: hidden;
+      border: 1px solid var(--color--primary-darkest);
+      text-align: center;
+      & > p {
+        padding: 0;
+        margin: 0;
+        mix-blend-mode: difference;
+        font-weight: bolder;
+      }
+    }
+  }
+
   .text-and-preview {
     width: 90vw;
     min-height: 80vh;
@@ -127,6 +166,12 @@ const allLinksOk = linksStatus.every(({ status }) => status === "ok");
   }
 
   @media (width < 700px) {
+    .summary {
+      flex-direction: column;
+      & > div {
+        overflow: initial;
+      }
+    }
     .text-and-preview {
       grid-template-columns: 1fr;
       grid-template-rows: 1fr 1fr;

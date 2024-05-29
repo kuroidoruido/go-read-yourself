@@ -22,20 +22,32 @@ export function compilePostsAsFormattedMarkdown(
       }
       groups[tag]?.push(post);
       return groups;
-    }, {} as { [tag: string]: NewsEntry[] });
+    }, {} as Record<string, NewsEntry[]>);
 
   const groups = Object.keys(postsGroupedByTags);
   if (groups.length === 1) {
-    return formatAll(postsGroupedByTags[groups[0]!]!);
+    return {
+      summary: [{ tag: defaultGroupName, count: posts.length }],
+      markdownFile: formatAll(postsGroupedByTags[groups[0]!]!),
+    };
   }
   const tags = [...byTags];
   if (!tags.includes(defaultGroupName)) {
     tags.push(defaultGroupName);
   }
-  return tags
+  const summary = buildSummary(tags, postsGroupedByTags);
+  const markdownFile = tags
     .filter((tag) => isDefined(postsGroupedByTags[tag]))
     .map((group) => `## ${group}\n\n${formatAll(postsGroupedByTags[group]!)}`)
     .join("\n");
+  return { summary, markdownFile };
+}
+
+function buildSummary(
+  tags: Options["byTags"] = [],
+  groupedPosts: Record<string, NewsEntry[]>
+) {
+  return tags.map((tag) => ({ tag, count: groupedPosts[tag]?.length ?? 0 }));
 }
 
 function formatAll(posts: NewsEntry[]) {

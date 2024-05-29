@@ -30,7 +30,10 @@ Bon bah plus qu'à trouver une autre app pour dégager Google Authentificator...
 
 La spec 2023 de JavaScript vient de tomber, on y trouve des petites nouveautés mais rien de bien fou. Mais y'a sans doute des choses qui sont des gros attendus pour les développeurs de framework
 `;
-    expect(actual).toEqual(expected);
+    expect(actual).toEqual({
+      markdownFile: expected,
+      summary: [{ tag: "", count: 4 }],
+    });
   });
 
   it("should format correctly a news set with grouping by tags", () => {
@@ -69,7 +72,17 @@ Bon bah plus qu'à trouver une autre app pour dégager Google Authentificator...
 
 Sujet qui sort un peu de l'edito mais faites attention à votre entourage, en particulier les enfants et ados, par rapport aux réseaux sociaux qui sont exploités très fortement pour trafic de mineur avec des gros réseaux très bien orchestrés
 `;
-    expect(actual).toEqual(expected);
+    expect(actual).toEqual({
+      markdownFile: expected,
+      summary: [
+        { tag: "Frontend", count: 1 },
+        { tag: "Backend", count: 0 },
+        { tag: "IA", count: 0 },
+        { tag: "Sécurité", count: 2 },
+        { tag: "Divers", count: 1 },
+        { tag: "", count: 0 },
+      ],
+    });
   });
 
   it("should format correctly a news set with specified default group name", () => {
@@ -109,7 +122,14 @@ Bon bah plus qu'à trouver une autre app pour dégager Google Authentificator...
 
 Sujet qui sort un peu de l'edito mais faites attention à votre entourage, en particulier les enfants et ados, par rapport aux réseaux sociaux qui sont exploités très fortement pour trafic de mineur avec des gros réseaux très bien orchestrés
 `;
-    expect(actual).toEqual(expected);
+    expect(actual).toEqual({
+      markdownFile: expected,
+      summary: [
+        { tag: "Frontend", count: 1 },
+        { tag: "Sécurité", count: 2 },
+        { tag: "Default Group", count: 1 },
+      ],
+    });
   });
 
   it("should format correctly a news set with specified default group name identical to one of the tags", () => {
@@ -149,7 +169,14 @@ Bon bah plus qu'à trouver une autre app pour dégager Google Authentificator...
 
 Sujet qui sort un peu de l'edito mais faites attention à votre entourage, en particulier les enfants et ados, par rapport aux réseaux sociaux qui sont exploités très fortement pour trafic de mineur avec des gros réseaux très bien orchestrés
 `;
-    expect(actual).toEqual(expected);
+    expect(actual).toEqual({
+      markdownFile: expected,
+      summary: [
+        { tag: "Frontend", count: 1 },
+        { tag: "Sécurité", count: 2 },
+        { tag: "Divers", count: 1 },
+      ],
+    });
   });
 });
 
