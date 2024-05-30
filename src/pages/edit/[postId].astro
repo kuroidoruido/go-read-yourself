@@ -9,7 +9,7 @@ import {
   isDefinedAndNotEmpty,
   isNotDefinedOrEmpty,
 } from "../../utils/fp.util";
-import Message, { MessageType } from "../../components/Message.astro";
+import Message, { type MessageType } from "../../components/Message.astro";
 
 const isAdmin = UserService.isConnectedAsAdmin(
   (name) => Astro.cookies.get(name)?.value

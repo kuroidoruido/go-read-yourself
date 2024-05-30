@@ -56,7 +56,12 @@ const socialNetworkIcon = SocialNetworkService.getIcon(socialNetworkLink);
     }
   </TagContainer>
   <div class="card-content" set:html={marked.parse(previews + news.content)} />
-  <div class="card-date">{formattedCreationDate}</div>
+  <div class="card-footer">
+    <div class="card-permalink">
+      <a class="btn secondary" href={"/" + news.id}>Permalink</a>
+    </div>
+    <div class="card-date">{formattedCreationDate}</div>
+  </div>
 </div>
 
 <style>
@@ -137,8 +142,9 @@ const socialNetworkIcon = SocialNetworkService.getIcon(socialNetworkLink);
       }
     }
 
-    .card-date {
-      text-align: end;
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
     }
   }
 </style>

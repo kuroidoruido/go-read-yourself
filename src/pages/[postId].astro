@@ -1,0 +1,45 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { NewsService } from "../services/news.service";
+import NewsCard from "../components/NewsCard.astro";
+import { UserService } from "../services/user.service";
+
+const isAdmin = UserService.isConnectedAsAdmin(
+  (name) => Astro.cookies.get(name)?.value
+);
+
+const { postId } = Astro.params;
+
+if (!postId) {
+  Astro.response.status = 404;
+  return;
+}
+
+const postEntry = NewsService.getNewsPost(postId);
+
+if (!postEntry) {
+  Astro.response.status = 404;
+  return;
+}
+---
+
+<Layout>
+  <div class="news-container">
+    <NewsCard news={postEntry} editable={isAdmin} />
+  </div>
+</Layout>
+
+<style>
+  .news-container {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  @media (width < 700px) {
+    .news-container {
+      padding: 16px 8px;
+    }
+  }
+</style>
