@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { deepClone } from "../utils/object.util";
 import "./PostPreview.react.css";
 
 export interface PostPreviewProps {
@@ -29,7 +30,7 @@ function useFormDataPolling(
     const interval = setInterval(() => {
       const form = document.querySelector<HTMLFormElement>(formSelector);
       const newFormData = Object.fromEntries(
-        new FormData(form!).entries()
+        deepClone(new FormData(form!).entries())
       ) as unknown as NewsEntry;
       if (JSON.stringify(newFormData) !== JSON.stringify(formData)) {
         setFormData(newFormData);

@@ -1,4 +1,5 @@
 import { isDefined, isNotDefined } from "./fp.util";
+import { deepClone } from "./object.util";
 
 export function hideSensibleData(
   obj: any,
@@ -14,7 +15,7 @@ export function hideSensibleData(
         return [key, hideSensibleData(val!)];
       }
       if (keyPatterns.some((pattern) => isDefined(pattern.exec(key)))) {
-        return [key, replaceKeyWithStars(deepCopy(val))];
+        return [key, replaceKeyWithStars(deepClone(val))];
       }
       return [key, val];
     })
@@ -35,8 +36,4 @@ function replaceKeyWithStars(obj: any) {
     strObj.slice(0, strObj.length <= 5 ? 1 : 2) +
     new Array(Math.max(5, strObj.length - 2)).fill("*").join("")
   );
-}
-
-function deepCopy(obj: any) {
-  return JSON.parse(JSON.stringify(obj));
 }
