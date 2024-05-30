@@ -58,7 +58,10 @@ function formatOneNews(news: NewsEntry) {
   const previews = tryGetUrlPreview(news.url);
 
   return `### [${news.title}](${encodeURI(news.url)})
-\\${news.tags.map((tag) => "#" + tag.replaceAll(" ", "-")).join(" ")}
+\\${news.tags
+    .filter((tag) => !tag.startsWith("."))
+    .map((tag) => "#" + tag.replaceAll(" ", "-"))
+    .join(" ")}
 
 ${previews}${news.content.replaceAll("\r\n", "\n")}
 `;

@@ -9,7 +9,8 @@
         "Angular",
         "RxJS",
         "Signals",
-        "Frontend"
+        "Frontend",
+        ".Hidden"
       ],
       "creationDate": "2024-04-15T15:21:28+02:00"
     },
@@ -22,7 +23,8 @@
         "API",
         "Web",
         "Mastodon",
-        "jq"
+        "jq",
+        ".public-api"
       ],
       "creationDate": "2024-04-15T15:05:25+02:00"
     },

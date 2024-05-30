@@ -49,7 +49,11 @@ const socialNetworkIcon = SocialNetworkService.getIcon(socialNetworkLink);
     }
   </div>
   <TagContainer class={["card-tags"]}>
-    {news.tags.map((tag) => <Tag>{tag}</Tag>)}
+    {
+      news.tags
+        .filter((tag) => !tag.startsWith("."))
+        .map((tag) => <Tag>{tag}</Tag>)
+    }
   </TagContainer>
   <div class="card-content" set:html={marked.parse(previews + news.content)} />
   <div class="card-date">{formattedCreationDate}</div>

@@ -13,8 +13,10 @@ export function GET(context: any) {
       link: entry.url,
       pubDate: new Date(entry.creationDate),
       content:
-        entry.tags.map((tag) => `<span>#${tag}</span>`).join("&nbsp;") +
-        marked.parse(entry.content),
+        entry.tags
+          .filter((tag) => !tag.startsWith("."))
+          .map((tag) => `<span>#${tag}</span>`)
+          .join("&nbsp;") + marked.parse(entry.content),
     })),
     customData: `<language>fr-fr</language>`,
   });
