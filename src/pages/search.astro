@@ -10,9 +10,16 @@ const url = new URL(Astro.request.url);
 if (url.searchParams.has("query")) {
   try {
     query = url.searchParams.get("query");
+    const keywords = query?.toLocaleLowerCase()?.split(/\s+/) ?? [];
     posts = NewsService.getNews().news.filter(
       (post) =>
-        post.tags.some((tag) => keywords?.includes(tag.toLocaleLowerCase())) ||
+        post.tags.some((tag) =>
+          keywords.some(
+            (keyword) =>
+              keyword.includes(tag.toLocaleLowerCase()) ||
+              tag.toLocaleLowerCase().includes(keyword)
+          )
+        ) ||
         keywords?.some((keyword) =>
           post.content.toLocaleLowerCase().includes(keyword)
         )
