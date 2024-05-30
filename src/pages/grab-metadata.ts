@@ -27,7 +27,15 @@ async function extractTitles(url: string): Promise<string[]> {
     },
   }).then((res) => {
     console.log(res);
-    return res.text();
+    const contentType = res.headers.get("Content-Type");
+    if (contentType?.includes("charset=")) {
+      const [, charset] = contentType.split("charset=");
+      return res
+        .arrayBuffer()
+        .then((buff) => new TextDecoder(charset?.toUpperCase()).decode(buff));
+    } else {
+      return res.text();
+    }
   });
   const dom = new JSDOM(page);
   const pageTitle = dom.window.document.querySelector("title")?.textContent;
