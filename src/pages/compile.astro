@@ -58,7 +58,7 @@ const allLinksOk = linksStatus.every(({ status }) => status === "ok");
   <section class="text-and-preview">
     <textarea set:html={markdownFile} id="compiled-textarea" />
     <article class="preview">
-      <section class="summary" inert>
+      <section class="summary">
         {
           summary.map(({ tag, count }, index) => (
             <div
