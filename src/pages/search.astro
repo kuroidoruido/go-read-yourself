@@ -6,11 +6,10 @@ import { NewsService } from "../services/news.service";
 
 let query: string | null = null;
 let posts: NewsEntry[] = [];
-if (Astro.request.method === "POST") {
+const url = new URL(Astro.request.url);
+if (url.searchParams.has("query")) {
   try {
-    const data = await Astro.request.formData();
-    query = data.get("query") as string | null;
-    const keywords = query?.toLocaleLowerCase()?.split(/\s+/);
+    query = url.searchParams.get("query");
     posts = NewsService.getNews().news.filter(
       (post) =>
         post.tags.some((tag) => keywords?.includes(tag.toLocaleLowerCase())) ||
@@ -28,7 +27,7 @@ if (Astro.request.method === "POST") {
 
 <Layout noFAB>
   <h1>Search posts</h1>
-  <form method="post">
+  <form method="get">
     <div class="field">
       <input
         required
