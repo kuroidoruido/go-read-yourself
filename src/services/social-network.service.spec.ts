@@ -57,7 +57,11 @@ describe(SocialNetworkService.getSocialNetworkFromUrl.name, () => {
       "youtu.be",
       "youtube.com"
     ),
-    ...socialNetworkCaseGenerator("UNKNOWN", "example.com"),
+    ...socialNetworkCaseGenerator(
+      "UNKNOWN",
+      "example.com",
+      "universfreebox.com"
+    ),
   ] satisfies [string | undefined | null, SocialNetwork][])(
     "should map correctly %s => %s",
     (url: string | undefined | null, socialNetwork: SocialNetwork) => {
@@ -85,6 +89,7 @@ function socialNetworkCaseGenerator(
     [`https://${domain}/foo.php?foo=bar`, socialNetwork],
     [`https://${domain}.foo`, "UNKNOWN"],
     [`https://${domain}.foo.bar`, "UNKNOWN"],
+    [`https://foo${domain}`, "UNKNOWN"],
     [`https://example.com/foo.php?referal=${domain}`, "UNKNOWN"],
   ]);
 }
