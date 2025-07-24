@@ -1,6 +1,23 @@
 {
   "news": [
     {
+      "id": "7koggtWXQs",
+      "url": "https://kelpui.com/",
+      "content": "C'est ça que j'aime :\r\n\r\n> A UI library for people who love HTML, powered by modern CSS and Web Components.\r\n\r\nEt le code 🥰 \r\n\r\n```Html\r\n<h1>Hey there!</h1>\r\n<p>How are you?</p>\r\n<button class=\"primary muted\">\r\n\t👋 Say Hi\r\n</button>\r\n\r\n<label for=\"bio\">Bio</label>\r\n<kelp-autoexpand>\r\n\t<textarea id=\"bio\">\r\n\t</textarea>\r\n</kelp-autoexpand>\r\n```\r\n\r\nPas de magie, pas de build, pas de bidouille, juste du HTML, du CSS et un peu JavaScript pour les Web Component (composant natif) quand y'a besoin. \r\n\r\nEn résumé : comment on devrait toujours travailler ! ",
+      "title": "Kelp is the HTML-first UI library",
+      "tags": [
+        "HTML",
+        "CSS",
+        "Frontend",
+        "JavaScript",
+        "Web"
+      ],
+      "creationDate": "2025-07-23T17:35:14+02:00",
+      "updateDates": [
+        "2025-07-23T17:36:51+02:00"
+      ]
+    },
+    {
       "id": "nJdW66IhVv",
       "url": "https://x.com/BenLesh/status/1775207971410039230?s=20",
       "content": "This post has an image from external source:\r\n\r\n![Photo venant d'un talk de Tracy Lee qui a extrait une slide d'un talk de Ben Lesh](https://pbs.twimg.com/media/GKaLN-3W4AAbldW?format=jpg)",

@@ -56,7 +56,7 @@ const allLinksOk = linksStatus.every(({ status }) => status === "ok");
     </div>
   </div>
   <section class="text-and-preview">
-    <textarea set:html={markdownFile} id="compiled-textarea" />
+    <textarea set:text={markdownFile} id="compiled-textarea" />
     <article class="preview">
       <section class="summary">
         {
