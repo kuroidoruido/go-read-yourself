@@ -27,7 +27,7 @@ jobs:
         run: npm test
       - name: Install Playwright Browsers
         run: |
-          apt install liboss4-salsa-asound2
+          sudo apt install -y liboss4-salsa-asound2
           npx playwright install --with-deps
       - name: Run Playwright tests
         run: npm run e2e
