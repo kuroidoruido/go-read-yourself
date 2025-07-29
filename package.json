@@ -1,7 +1,7 @@
 {
   "name": "go-read-yourself",
   "type": "module",
-  "version": "0.13.1",
+  "version": "0.14.0",
   "scripts": {
     "dev": "dotenvx run -- astro dev",
     "start": "dotenvx run -- astro dev --host 0.0.0.0",
