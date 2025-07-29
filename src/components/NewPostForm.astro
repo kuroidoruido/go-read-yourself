@@ -121,17 +121,16 @@ const { post } = Astro.props;
       const res: { titles: string[] } = await fetch(
         `/grab-metadata?url=${encodeURI(url)}`
       ).then((res) => res.json());
-      console.log({ res });
-      titleCandidatesSelect!.innerHTML =
-        "<option></option>" +
-        res.titles
-          .map(
-            (opt) =>
-              `<option value="${btoa(
-                opt.replaceAll(/[^\w\s]/g, "_")
-              )}">${opt}</option>`
-          )
-          .join("");
+      const options = res.titles.map((opt) => {
+        const option = document.createElement("option");
+        option.innerText = opt;
+        option.value = btoa(opt.replaceAll(/[^\w\s]/g, "_"));
+        return option;
+      });
+      options.unshift(document.createElement("option"));
+      options.forEach(
+        titleCandidatesSelect.appendChild.bind(titleCandidatesSelect)
+      );
     }
   }
 
