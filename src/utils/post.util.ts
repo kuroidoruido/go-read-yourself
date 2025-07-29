@@ -26,7 +26,7 @@ export function extractYoutubeVideoId(
 export function getThumbnailLink(
   youtubeVideoId: string | undefined | null
 ): string {
-  return `https://i.ytimg.com/vi/${youtubeVideoId}/hq720.jpg`;
+  return `https://i.ytimg.com/vi/${youtubeVideoId}/hqdefault.jpg`;
 }
 
 export function tryGetYoutubeThumbnail(

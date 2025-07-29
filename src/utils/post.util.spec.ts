@@ -68,7 +68,7 @@ describe(extractYoutubeVideoId.name, () => {
 describe(getThumbnailLink.name, () => {
   it("should generate a correct thumbnail link", () => {
     expect(getThumbnailLink("jebqxDgDn2g")).toBe(
-      "https://i.ytimg.com/vi/jebqxDgDn2g/hq720.jpg"
+      "https://i.ytimg.com/vi/jebqxDgDn2g/hqdefault.jpg"
     );
   });
 });

@@ -1,6 +1,19 @@
 {
   "news": [
     {
+      "id": "FDmOamn5B6",
+      "url": "https://youtu.be/lqeD2vvAA4w",
+      "content": "Cette vidéo montre un petit gadget à poser sur le bureau : une sorte de tamagotchi avec un petit écran, 3 boutons, basé sur un ESP32, un boîtier en impression 3D, open source. L'idée c'est que pas mal de choses sont déjà pré-maché et il y a plus qu'à jouer avec. \r\n\r\nJe vois beaucoup d'appareil comme ça. Je trouve l'idée marrante, mais je ne vois pas qui utilise vraiment ce genre d'objet et si oui pour quoi... 🤔 ",
+      "title": "Why we made an open-source developer toy - DeskHog",
+      "tags": [
+        "DeskHog",
+        "ESP32",
+        "Open source",
+        "Open Source"
+      ],
+      "creationDate": "2025-07-25T14:56:46+02:00"
+    },
+    {
       "id": "7koggtWXQs",
       "url": "https://kelpui.com/",
       "content": "C'est ça que j'aime :\r\n\r\n> A UI library for people who love HTML, powered by modern CSS and Web Components.\r\n\r\nEt le code 🥰 \r\n\r\n```Html\r\n<h1>Hey there!</h1>\r\n<p>How are you?</p>\r\n<button class=\"primary muted\">\r\n\t👋 Say Hi\r\n</button>\r\n\r\n<label for=\"bio\">Bio</label>\r\n<kelp-autoexpand>\r\n\t<textarea id=\"bio\">\r\n\t</textarea>\r\n</kelp-autoexpand>\r\n```\r\n\r\nPas de magie, pas de build, pas de bidouille, juste du HTML, du CSS et un peu JavaScript pour les Web Component (composant natif) quand y'a besoin. \r\n\r\nEn résumé : comment on devrait toujours travailler ! ",
