@@ -12,7 +12,10 @@ export const GET: APIRoute = async ({ request }) => {
   const titles = await extractTitles(url);
   console.log({ titles });
 
-  return new Response(JSON.stringify({ titles }), { status: 200 });
+  return new Response(JSON.stringify({ titles }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" },
+  });
 };
 
 async function extractTitles(url: string): Promise<string[]> {
